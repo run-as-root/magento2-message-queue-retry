@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="RunAsRoot_MessageQueueRetry::message_queue_retry"
+             title="run-as-root"
+             module="RunAsRoot_MessageQueueRetry" sortOrder="1000"
+             resource="RunAsRoot_MessageQueueRetry::message_queue_retry"
+        />
+        <add id="RunAsRoot_MessageQueueRetry::message_queue_manage"
+             title="Manage messages"
+             translate="title"
+             module="RunAsRoot_MessageQueueRetry"
+             sortOrder="10"
+             parent="RunAsRoot_MessageQueueRetry::message_queue_retry"
+             action="message_queue_retry/index/index"
+             resource="RunAsRoot_MessageQueueRetry::listing"
+        />
+    </menu>
+</config>

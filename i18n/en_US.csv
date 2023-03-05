@@ -1,0 +1,13 @@
+"Message Queue Retry","Message Queue Retry"
+General,General
+"Delay Topic Name","Delay Topic Name"
+"Retry Limit","Retry Limit"
+"Queue Retry Configuration","Queue Retry Configuration"
+"Delay topic name "%1" is already used.","Delay topic name "%1" is already used."
+"Delay queues","Delay queues"
+"Enable delay queue","Enable delay queue"
+"Failed queue with id "%1" could not be found.","Failed queue with id "%1" could not be found."
+"Could not save failed queue: %1","Could not save failed queue: %1"
+"Failed queue with id %1 could not deleted","Failed queue with id %1 could not deleted"
+"Failed Queue Management","Failed Queue Management"
+"Failed queue messages","Failed queue messages"
