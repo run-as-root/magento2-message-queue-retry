@@ -36,6 +36,8 @@ class Requeue extends Action
             );
         }
 
-        return $redirect->setPath('message_queue_retry/index/index');
+        $redirect->setPath('message_queue_retry/index/index');
+
+        return $redirect;
     }
 }

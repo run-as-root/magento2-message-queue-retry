@@ -33,7 +33,7 @@ class MassRequeue extends Action
         try {
             $collection = $this->filter->getCollection($this->collectionFactory->create());
 
-            foreach ($collection as $message) {
+            foreach ($collection->getItems() as $message) {
                 $this->publishMessageToQueueService->executeByMessage($message);
             }
 
@@ -44,6 +44,8 @@ class MassRequeue extends Action
             );
         }
 
-        return $redirect->setPath('message_queue_retry/index/index');
+        $redirect->setPath('message_queue_retry/index/index');
+
+        return $redirect;
     }
 }
