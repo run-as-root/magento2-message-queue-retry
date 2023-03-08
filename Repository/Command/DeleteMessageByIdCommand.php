@@ -12,7 +12,7 @@ class DeleteMessageByIdCommand
 {
     public function __construct(
         private ResourceModel $resourceModel,
-        private FindMessageByIdQuery $findMessageById
+        private FindMessageByIdQuery $findMessageByIdQuery
     ) {
     }
 
@@ -22,7 +22,7 @@ class DeleteMessageByIdCommand
     public function execute(int $entityId): void
     {
         try {
-            $model = $this->findMessageById->execute($entityId);
+            $model = $this->findMessageByIdQuery->execute($entityId);
             $this->resourceModel->delete($model);
         } catch (\Exception $e) {
             throw new MessageCouldNotBeDeletedException(

@@ -21,11 +21,12 @@ class MessageToRawResponseMapper
      */
     public function map(Message $message, RawResponse $rawResponse): RawResponse
     {
-        if (!$message->getMessageBody()) {
+        $messageBody = $message->getMessageBody();
+        if (!$messageBody) {
             throw new EmptyQueueMessageBodyException(__('Message body is empty'));
         }
 
-        $contentLength = strlen($message->getMessageBody());
+        $contentLength = strlen($messageBody);
         $fileName = $this->messageBodyDownloadFileNameBuilder->build($message);
 
         $rawResponse->setHttpResponseCode(200);
@@ -34,7 +35,7 @@ class MessageToRawResponseMapper
         $rawResponse->setHeader('Content-type', 'application/json', true);
         $rawResponse->setHeader('Content-Length', $contentLength, true);
         $rawResponse->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"', true);
-        $rawResponse->setContents($message->getMessageBody());
+        $rawResponse->setContents($messageBody);
 
         return $rawResponse;
     }

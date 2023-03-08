@@ -13,6 +13,7 @@ use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
 use Magento\Framework\Serialize\Serializer\Json;
+use RunAsRoot\MessageQueueRetry\Exception\InvalidQueueConfigurationException;
 use RunAsRoot\MessageQueueRetry\Validator\QueueConfigurationValidator;
 
 class QueuesConfig extends ArraySerialized
@@ -41,7 +42,7 @@ class QueuesConfig extends ArraySerialized
     }
 
     /**
-     * @throws LocalizedException
+     * @throws InvalidQueueConfigurationException
      */
     public function beforeSave(): self
     {
