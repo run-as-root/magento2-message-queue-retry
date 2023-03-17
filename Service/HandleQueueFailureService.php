@@ -9,6 +9,7 @@ use JsonException;
 use Magento\Framework\Amqp\Queue;
 use Magento\Framework\MessageQueue\ConnectionLostException;
 use Magento\Framework\MessageQueue\Envelope;
+use PhpAmqpLib\Wire\AMQPTable;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
 use RunAsRoot\MessageQueueRetry\Model\MessageFactory;
 use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
@@ -39,14 +40,14 @@ class HandleQueueFailureService
         $applicationHeaders = $messageProperties['application_headers'] ?? null;
 
         // If there are no application headers, then it is the first time the message has been processed.
-        if (!$applicationHeaders) {
+        if (!$applicationHeaders instanceof AMQPTable) {
             $queue->reject($message, false, $exception->getMessage());
             return;
         }
 
         $totalRetries = $this->getTotalRetries($applicationHeaders);
 
-        $topicName = $message->getProperties()['topic_name'] ?? null;
+        $topicName = $messageProperties['topic_name'] ?? null;
 
         if (!$topicName) {
             $queue->reject($message, false, $exception->getMessage());
@@ -79,7 +80,7 @@ class HandleQueueFailureService
         $queue->reject($message, false, $exception->getMessage());
     }
 
-    private function getTotalRetries(array $applicationHeaders): int
+    private function getTotalRetries(AMQPTable $applicationHeaders): int
     {
         $totalRetries = 1;
 
