@@ -57,7 +57,7 @@
             <action name="requeue">
                 <settings>
                     <confirm>
-                        <message translate="true">Are you sure to sent selected items to the queues?</message>
+                        <message translate="true">Are you sure to sent the selected items to the queues?</message>
                         <title translate="true">Requeue items</title>
                     </confirm>
                     <type>requeue</type>
@@ -68,7 +68,7 @@
             <action name="delete">
                 <settings>
                     <confirm>
-                        <message translate="true">Are you sure to delete selected items?</message>
+                        <message translate="true">Are you sure to delete the selected items?</message>
                         <title translate="true">Delete items</title>
                     </confirm>
                     <url path="message_queue_retry/message/massDelete"/>
