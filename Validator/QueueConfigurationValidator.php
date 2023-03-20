@@ -42,7 +42,7 @@ class QueueConfigurationValidator
     /**
      * @throws InvalidQueueConfigurationException
      */
-    public function performUniqueValidation(array $configValues, string $field, string $name): void
+    private function performUniqueValidation(array $configValues, string $field, string $name): void
     {
         $topicNames = [];
 
