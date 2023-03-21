@@ -10,11 +10,6 @@ use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
 
 class Message extends AbstractModel implements MessageInterface
 {
-    protected function _construct(): void
-    {
-        $this->_init(ResourceModel::class);
-    }
-
     public function getTopicName(): string
     {
         return $this->getData(self::TOPIC_NAME);
@@ -73,5 +68,10 @@ class Message extends AbstractModel implements MessageInterface
     public function setCreatedAt(string $value): void
     {
         $this->setData(self::CREATED_AT, $value);
+    }
+
+    protected function _construct(): void
+    {
+        $this->_init(ResourceModel::class);
     }
 }

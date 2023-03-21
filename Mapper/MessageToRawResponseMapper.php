@@ -22,6 +22,7 @@ class MessageToRawResponseMapper
     public function map(Message $message, RawResponse $rawResponse): RawResponse
     {
         $messageBody = $message->getMessageBody();
+
         if (!$messageBody) {
             throw new EmptyQueueMessageBodyException(__('Message body is empty'));
         }
