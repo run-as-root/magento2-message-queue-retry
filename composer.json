@@ -1,0 +1,40 @@
+{
+    "name": "run-as-root/magento2-message-queue-retry",
+    "version": "1.0.0",
+    "description": "Provides message queue retry processing functionality via RabbitMQ's dead letter exchange.",
+    "type": "magento2-module",
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "magento/framework": ">=103.0.5",
+        "magento/module-backend": ">=102.0.5",
+        "magento/module-config": ">=101.2.5",
+        "magento/module-ui": ">=101.2.5",
+        "php-amqplib/php-amqplib": "^v3.2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://mirror.mage-os.org/",
+            "only": [
+                "magento/*"
+            ]
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "RunAsRoot\\MessageQueueRetry\\": ""
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "magento/composer-dependency-version-audit-plugin": false
+        }
+    }
+}
