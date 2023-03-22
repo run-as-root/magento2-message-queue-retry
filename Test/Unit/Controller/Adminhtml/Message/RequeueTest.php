@@ -57,6 +57,24 @@ final class RequeueTest extends TestCase
         $this->assertEquals($redirectMock, $result);
     }
 
+    public function testExecuteWithInvalidMessageId(): void
+    {
+        $this->requestMock->expects($this->once())->method('getParam')->with('message_id')->willReturn(null);
+
+        $redirectMock = $this->createMock(Redirect::class);
+        $this->redirectFactoryMock->expects($this->once())->method('create')->willReturn($redirectMock);
+        $redirectMock->expects($this->once())->method('setPath')->with('message_queue_retry/index/index');
+
+        $message = __('Invalid message id provided in the request params');
+        $this->messageManagerMock->expects($this->once())->method('addErrorMessage')->with($message);
+
+        $this->publishMessageToQueueServiceMock->expects($this->never())->method('executeById');
+
+        $result = $this->sut->execute();
+
+        $this->assertEquals($redirectMock, $result);
+    }
+
     public function testAdminResourceValue(): void
     {
         $this->assertEquals('RunAsRoot_MessageQueueRetry::requeue', Requeue::ADMIN_RESOURCE);

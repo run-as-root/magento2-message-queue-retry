@@ -26,6 +26,12 @@ class Requeue extends Action
     {
         $messageId = (int)$this->getRequest()->getParam('message_id');
         $redirect = $this->redirectFactory->create();
+        $redirect->setPath('message_queue_retry/index/index');
+
+        if (!$messageId) {
+            $this->messageManager->addErrorMessage(__('Invalid message id provided in the request params'));
+            return $redirect;
+        }
 
         try {
             $this->publishMessageToQueueService->executeById($messageId);
@@ -35,8 +41,6 @@ class Requeue extends Action
                 __('An error occurred while trying to requeue the message: %1', $e->getMessage())
             );
         }
-
-        $redirect->setPath('message_queue_retry/index/index');
 
         return $redirect;
     }
