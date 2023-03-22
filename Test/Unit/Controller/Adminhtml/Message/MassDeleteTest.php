@@ -13,7 +13,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RunAsRoot\MessageQueueRetry\Controller\Adminhtml\Message\MassDelete;
 use RunAsRoot\MessageQueueRetry\Model\Message;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\Collection;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\MessageCollection;
 use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\CollectionFactory;
 use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
 
@@ -52,7 +52,7 @@ final class MassDeleteTest extends TestCase
 
         $messageOneMock = $this->createMock(Message::class);
         $messageTwoMock = $this->createMock(Message::class);
-        $collectionMock = $this->createMock(Collection::class);
+        $collectionMock = $this->createMock(MessageCollection::class);
         $collectionMock->expects($this->once())->method('getItems')->willReturn([$messageOneMock, $messageTwoMock]);
 
         $this->collectionFactoryMock->expects($this->once())->method('create')->willReturn($collectionMock);

@@ -19,7 +19,7 @@
                 RunAsRoot\MessageQueueRetry\Api\Data\MessageInterface::TABLE_NAME
             </argument>
             <argument name="resourceModel" xsi:type="string">
-                RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message
+                RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource
             </argument>
         </arguments>
     </virtualType>

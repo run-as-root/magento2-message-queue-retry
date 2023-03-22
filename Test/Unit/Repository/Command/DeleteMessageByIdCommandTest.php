@@ -8,7 +8,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
 use RunAsRoot\MessageQueueRetry\Model\Message;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource as ResourceModel;
 use RunAsRoot\MessageQueueRetry\Repository\Command\DeleteMessageByIdCommand;
 use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageByIdQuery;
 

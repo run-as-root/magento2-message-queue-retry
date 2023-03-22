@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
 use RunAsRoot\MessageQueueRetry\Model\Message;
 use RunAsRoot\MessageQueueRetry\Repository\Command\CreateMessageCommand;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource as ResourceModel;
 
 class CreateMessageCommandTest extends TestCase
 {

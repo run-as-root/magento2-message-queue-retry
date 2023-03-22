@@ -7,7 +7,7 @@ namespace RunAsRoot\MessageQueueRetry\Model\ResourceModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use RunAsRoot\MessageQueueRetry\Api\Data\MessageInterface;
 
-class Message extends AbstractDb
+class MessageResource extends AbstractDb
 {
     protected function _construct(): void
     {

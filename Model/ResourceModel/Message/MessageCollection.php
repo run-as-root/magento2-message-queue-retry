@@ -6,9 +6,9 @@ namespace RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use RunAsRoot\MessageQueueRetry\Model\Message as Model;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource as ResourceModel;
 
-class Collection extends AbstractCollection
+class MessageCollection extends AbstractCollection
 {
     protected function _construct(): void
     {

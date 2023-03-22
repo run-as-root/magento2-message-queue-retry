@@ -6,7 +6,7 @@ namespace RunAsRoot\MessageQueueRetry\Repository\Command;
 
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
 use RunAsRoot\MessageQueueRetry\Model\Message;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource as ResourceModel;
 
 class CreateMessageCommand
 {

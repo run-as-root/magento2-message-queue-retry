@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
 use RunAsRoot\MessageQueueRetry\Model\Message;
 use RunAsRoot\MessageQueueRetry\Model\MessageFactory as ModelFactory;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource as ResourceModel;
 use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageByIdQuery;
 
 class FindMessageByIdQueryTest extends TestCase

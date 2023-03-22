@@ -6,7 +6,7 @@ namespace RunAsRoot\MessageQueueRetry\Model;
 
 use Magento\Framework\Model\AbstractModel;
 use RunAsRoot\MessageQueueRetry\Api\Data\MessageInterface;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource as ResourceModel;
 
 class Message extends AbstractModel implements MessageInterface
 {
