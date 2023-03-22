@@ -6,10 +6,17 @@ namespace RunAsRoot\MessageQueueRetry\Model;
 
 use Magento\Framework\Model\AbstractModel;
 use RunAsRoot\MessageQueueRetry\Api\Data\MessageInterface;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\MessageCollection;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource;
 
 class Message extends AbstractModel implements MessageInterface
 {
+    protected function _construct(): void
+    {
+        $this->_init(MessageResource::class);
+        $this->_collectionName = MessageCollection::class;
+    }
+
     public function getTopicName(): string
     {
         return $this->getData(self::TOPIC_NAME);
@@ -68,10 +75,5 @@ class Message extends AbstractModel implements MessageInterface
     public function setCreatedAt(string $value): void
     {
         $this->setData(self::CREATED_AT, $value);
-    }
-
-    protected function _construct(): void
-    {
-        $this->_init(ResourceModel::class);
     }
 }
