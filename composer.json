@@ -48,6 +48,7 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit -c phpunit.xml"
+        "test": "./vendor/bin/phpunit -c phpunit.xml",
+        "phpstan": "phpstan"
     }
 }
