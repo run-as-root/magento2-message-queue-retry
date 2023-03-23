@@ -4,6 +4,12 @@
     "description": "Provides message queue retry processing functionality via RabbitMQ's dead letter exchange.",
     "type": "magento2-module",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Cristiano Pacheco",
+            "email": "cristiano.pacheco@run-as-root.sh"
+        }
+    ],
     "require": {
         "php": "^8.1",
         "magento/framework": ">=103.0.5",
@@ -13,7 +19,15 @@
         "php-amqplib/php-amqplib": "^v3.2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "~9.5.20",
+        "phpmd/phpmd": "^2.13",
+        "phpstan/phpstan": "^1.6.8",
+        "squizlabs/php_codesniffer": "~3.7.0",
+        "magento/magento-coding-standard": "*",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "slevomat/coding-standard": "^8.8",
+        "sebastian/phpcpd": "^6.0",
+        "pdepend/pdepend": "^2.13"
     },
     "repositories": [
         {
@@ -26,15 +40,27 @@
     ],
     "autoload": {
         "files": [
-            "registration.php"
+            "src/registration.php"
         ],
         "psr-4": {
-            "RunAsRoot\\MessageQueueRetry\\": ""
+            "RunAsRoot\\MessageQueueRetry\\": "src"
         }
     },
     "config": {
         "allow-plugins": {
-            "magento/composer-dependency-version-audit-plugin": false
+            "magento/composer-dependency-version-audit-plugin": false,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "([ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths ../../slevomat/coding-standard,../../magento/magento-coding-standard/,../../phpcompatibility/php-compatibility)"
+        ],
+        "test": "./vendor/bin/phpunit -c phpunit.xml",
+        "phpstan": "phpstan",
+        "sniffer": "vendor/bin/phpcs --colors -p ./src --standard=phpcs-ruleset.xml",
+        "fix-style": "vendor/bin/phpcbf --colors -p ./src --standard=phpcs-ruleset.xml",
+        "sniffer:php8.1": "vendor/bin/phpcs -p ./src --standard=vendor/phpcompatibility/php-compatibility/PHPCompatibility --runtime-set testVersion 8.1",
+        "mess-detector": "vendor/bin/phpmd src html phpmd-ruleset.xml --exclude \"Test\" --strict --reportfile reports/phpmd/phpmd.html"
     }
 }
