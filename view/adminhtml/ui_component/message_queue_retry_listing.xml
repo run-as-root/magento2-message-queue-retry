@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">
+                message_queue_retry_listing.message_queue_retry_listing_data_source
+            </item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>failed_queue_columns</spinner>
+        <deps>
+            <dep>message_queue_retry_listing.message_queue_retry_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="message_queue_retry_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>RunAsRoot_MessageQueueRetry::listing</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"
+                      name="message_queue_retry_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+        <massaction name="listing_massaction">
+            <action name="requeue">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure to sent the selected items to the queues?</message>
+                        <title translate="true">Requeue items</title>
+                    </confirm>
+                    <type>requeue</type>
+                    <url path="message_queue_retry/message/massRequeue"/>
+                    <label translate="true">Requeue</label>
+                </settings>
+            </action>
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure to delete the selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="message_queue_retry/message/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="failed_queue_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>entity_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>55</resizeDefaultWidth>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="topic_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Topic Name</label>
+            </settings>
+        </column>
+        <column name="total_retries">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Total Retries</label>
+            </settings>
+        </column>
+        <column name="resource_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Resource Id</label>
+            </settings>
+        </column>
+        <column name="failure_description">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Failure Description</label>
+            </settings>
+        </column>
+        <column name="message_body" class="RunAsRoot\MessageQueueRetry\Ui\Component\Listing\Columns\MessageBody">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Message Body</label>
+            </settings>
+        </column>
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class = "RunAsRoot\MessageQueueRetry\Ui\Component\Listing\Columns\Actions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">true</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>

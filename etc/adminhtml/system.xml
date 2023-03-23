@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="run_as_root" sortOrder="300">
+            <label>Run As Root</label>
+        </tab>
+        <section id="message_queue_retry" translate="label" type="text" sortOrder="10" showInDefault="1"
+                 showInWebsite="0" showInStore="0">
+            <class>separator-top</class>
+            <label>Message Queue Retry</label>
+            <tab>run_as_root</tab>
+            <resource>RunAsRoot_MessageQueueRetry::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <field id="enable_delay_queue" translate="label,comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Enable delay queue</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        If disabled the queue messages will not be sent to the failed queue messaged grid and the
+                        default Magento behavior will run instead.
+                    </comment>
+                </field>
+                <field id="delay_queues" translate="label" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Delay queues</label>
+                    <frontend_model>RunAsRoot\MessageQueueRetry\Block\Adminhtml\QueuesConfig</frontend_model>
+                    <backend_model>RunAsRoot\MessageQueueRetry\Model\Config\Backend\QueuesConfig</backend_model>
+                    <comment>
+                        Please, provide the topic name of the delay queue that is within the communication.xml file.
+                        After the retry limit is reached the message will be sent to the failed messages grid.
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

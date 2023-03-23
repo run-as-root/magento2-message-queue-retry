@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="run_as_root_message" resource="default" engine="innodb">
+        <column xsi:type="bigint" name="entity_id" unsigned="false" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="topic_name" length="255" nullable="false"/>
+        <column xsi:type="mediumtext" name="message_body" nullable="true"/>
+        <column xsi:type="text" name="failure_description" nullable="true"/>
+        <column xsi:type="int" name="total_retries" nullable="true"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="RUN_AS_ROOT_MESSAGE_TOPIC_NAME" indexType="btree">
+            <column name="topic_name"/>
+        </index>
+    </table>
+</schema>

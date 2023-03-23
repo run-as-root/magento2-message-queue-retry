@@ -1,0 +1,45 @@
+"Main Topic Name","Main Topic Name"
+"Delay Topic Name","Delay Topic Name"
+"Retry Limit","Retry Limit"
+Messages,Messages
+"The messages have been successfully deleted","The messages have been successfully deleted"
+"An error occurred while trying to delete the messages: %1","An error occurred while trying to delete the messages: %1"
+"Messages queued successfully","Messages queued successfully"
+"An error occurred while trying to requeue the message: %1","An error occurred while trying to requeue the message: %1"
+"Message queued successfully","Message queued successfully"
+"Manage messages","Manage messages"
+"Message Queue Retry","Message Queue Retry"
+General,General
+"Enable delay queue","Enable delay queue"
+"If disabled the queue messages will not be sent to the failed queue messaged grid and the
+                         default Magento behavior will run instead.","If disabled the queue messages will not be sent to the failed queue messaged grid and the
+                                                                                              default Magento behavior will run instead."
+"Delay queues","Delay queues"
+"Please, provide the topic name of the delay queue that is within the communication.xml file.
+                         After the retry limit is reached the message will be sent to the failed messages grid.","Please, provide the topic name of the delay queue that is within the communication.xml file.
+                                                                                                              After the retry limit is reached the message will be sent to the failed messages grid."
+"Admin Configuration","Admin Configuration"
+Listing,Listing
+Download,Download
+"Mass Action Delete","Mass Action Delete"
+"Mass Action Requeue","Mass Action Requeue"
+Requeue,Requeue
+"Message body is empty","Message body is empty"
+"Only AMQP connection is supported.","Only AMQP connection is supported."
+"Could not save message: %1","Could not save message: %1"
+"Message with id %1 could not deleted","Message with id %1 could not deleted"
+"Message with id "%1" could not be found.","Message with id "%1" could not be found."
+"Requeue it","Requeue it"
+"The main topic name "%1" and delay topic name "%2" cannot be the same.","The main topic name "%1" and delay topic name "%2" cannot be the same."
+"Are you sure to sent selected items to the queues?","Are you sure to sent selected items to the queues?"
+"Requeue items","Requeue items"
+"Are you sure to delete the selected items?","Are you sure to delete the selected items?"
+"Delete items","Delete items"
+ID,ID
+"Topic Name","Topic Name"
+"Total Retries","Total Retries"
+"Resource Id","Resource Id"
+"Failure Description","Failure Description"
+"Message Body","Message Body"
+"Created At","Created At"
+"Invalid message id provided in the request params","Invalid message id provided in the request params"
