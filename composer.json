@@ -25,7 +25,8 @@
         "squizlabs/php_codesniffer": "~3.7.0",
         "magento/magento-coding-standard": "*",
         "phpcompatibility/php-compatibility": "^9.3",
-        "slevomat/coding-standard": "^8.8"
+        "slevomat/coding-standard": "^8.8",
+        "sebastian/phpcpd": "^6.0"
     },
     "repositories": [
         {
@@ -57,6 +58,7 @@
         "test": "./vendor/bin/phpunit -c phpunit.xml",
         "phpstan": "phpstan",
         "sniffer": "vendor/bin/phpcs --colors -p ./src --standard=phpcs-ruleset.xml",
+        "fix-style": "vendor/bin/phpcbf --colors -p ./src --standard=phpcs-ruleset.xml",
         "sniffer:php8.1": "vendor/bin/phpcs -p ./src --standard=vendor/phpcompatibility/php-compatibility/PHPCompatibility --runtime-set testVersion 8.1"
     }
 }
