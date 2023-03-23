@@ -46,5 +46,8 @@
         "allow-plugins": {
             "magento/composer-dependency-version-audit-plugin": false
         }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit -c phpunit.xml"
     }
 }
