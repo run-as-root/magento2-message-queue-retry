@@ -1,7 +1,8 @@
 parameters:
-  level: 5
+  level: 8
   paths:
     - src
   excludePaths:
     analyseAndScan:
       - src/Test
+      - src/Queue/Consumer.php

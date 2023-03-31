@@ -8,6 +8,10 @@ use Magento\Ui\Component\Listing\Columns\Column;
 
 class MessageBody extends Column
 {
+    /**
+     * @param array<string, mixed> $dataSource
+     * @return array<string, mixed>
+     */
     public function prepareDataSource(array $dataSource): array
     {
         if (isset($dataSource['data']['items'])) {

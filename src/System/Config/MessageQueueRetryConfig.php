@@ -25,6 +25,7 @@ class MessageQueueRetryConfig
     }
 
     /**
+     * @return array<int|string, array<string,mixed>>
      * @throws JsonException
      */
     public function getDelayQueues(): array
@@ -41,10 +42,11 @@ class MessageQueueRetryConfig
 
         foreach ($configValues as $configValue) {
             $mainTopicName = $configValue[self::MAIN_TOPIC_NAME] ?? null;
+            $retryLimit = isset($configValue[self::RETRY_LIMIT]) ? (int)$configValue[self::RETRY_LIMIT] : null;
             $result[$mainTopicName] = [
                 self::MAIN_TOPIC_NAME => $mainTopicName,
                 self::DELAY_TOPIC_NAME => $configValue[self::DELAY_TOPIC_NAME] ?? null,
-                self::RETRY_LIMIT => (int)$configValue[self::RETRY_LIMIT] ?? null,
+                self::RETRY_LIMIT => $retryLimit,
             ];
         }
 

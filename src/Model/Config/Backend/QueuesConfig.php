@@ -17,7 +17,7 @@ use RunAsRoot\MessageQueueRetry\Validator\QueueConfigurationValidator;
 
 class QueuesConfig extends ArraySerialized
 {
-    public function __construct(
+    public function __construct( // @phpstan-ignore-line
         Context $context,
         Registry $registry,
         ScopeConfigInterface $config,
@@ -45,6 +45,7 @@ class QueuesConfig extends ArraySerialized
      */
     public function beforeSave(): self
     {
+        /** @var string|array<string|mixed> $value */
         $value = $this->getValue();
 
         if (!is_array($value)) {

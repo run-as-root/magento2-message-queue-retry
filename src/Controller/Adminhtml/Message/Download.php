@@ -20,7 +20,7 @@ class Download extends Action
     public function __construct(
         Context $context,
         private MessageRepository $messageRepository,
-        private RawFactory $rawFactory,
+        private RawFactory $rawFactory, // @phpstan-ignore-line
         private MessageToRawResponseMapper $messageToRawResponseMapper
     ) {
         parent::__construct($context);
@@ -34,7 +34,7 @@ class Download extends Action
     {
         $messageId = (int)$this->getRequest()->getParam('message_id');
         $message = $this->messageRepository->findById($messageId);
-        $rawResponse = $this->rawFactory->create();
+        $rawResponse = $this->rawFactory->create(); // @phpstan-ignore-line
         $this->messageToRawResponseMapper->map($message, $rawResponse);
 
         return $rawResponse;

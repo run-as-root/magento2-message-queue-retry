@@ -32,7 +32,7 @@ class Publisher
         try {
             $connectionName = $this->publisherConfig->getPublisher($topicName)->getConnection()->getName();
         } catch (\Exception $e) {
-            $exceptionMessage = $e->getMessage() instanceof Phrase ? $e->getMessage() : new Phrase($e->getMessage());
+            $exceptionMessage = new Phrase($e->getMessage());
             throw new InvalidPublisherConfigurationException($exceptionMessage, $e, $e->getCode());
         }
 
@@ -45,6 +45,9 @@ class Publisher
         $exchange->enqueue($topicName, $envelope);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getEnvelopeData(string $topicName, string $data): array
     {
         return [

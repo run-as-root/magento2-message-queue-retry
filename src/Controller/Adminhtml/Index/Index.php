@@ -6,6 +6,7 @@ namespace RunAsRoot\MessageQueueRetry\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Backend\Model\View\Result\Page as BackendResultPage;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
@@ -23,8 +24,10 @@ class Index extends Action
     public function execute(): Page
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__('Messages'));
-        $resultPage->setActiveMenu(self::ADMIN_RESOURCE);
+        $resultPage->getConfig()->getTitle()->prepend(__('Messages')->render());
+        if ($resultPage instanceof BackendResultPage) {
+            $resultPage->setActiveMenu(self::ADMIN_RESOURCE);
+        }
         return $resultPage;
     }
 }

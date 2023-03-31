@@ -34,7 +34,7 @@ class MessageToRawResponseMapper
         $rawResponse->setHeader('Pragma', 'public', true);
         $rawResponse->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true);
         $rawResponse->setHeader('Content-type', 'application/json', true);
-        $rawResponse->setHeader('Content-Length', $contentLength, true);
+        $rawResponse->setHeader('Content-Length', (string)$contentLength, true);
         $rawResponse->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"', true);
         $rawResponse->setContents($messageBody);
 

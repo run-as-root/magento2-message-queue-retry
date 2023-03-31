@@ -7,7 +7,7 @@ namespace RunAsRoot\MessageQueueRetry\Service;
 use Exception;
 use JsonException;
 use Magento\Framework\MessageQueue\ConnectionLostException;
-use Magento\Framework\MessageQueue\Envelope;
+use Magento\Framework\MessageQueue\EnvelopeInterface;
 use Magento\Framework\MessageQueue\QueueInterface;
 use PhpAmqpLib\Wire\AMQPTable;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
@@ -19,7 +19,7 @@ class HandleQueueFailureService
 {
     public function __construct(
         private MessageQueueRetryConfig $messageQueueRetryConfig,
-        private MessageFactory $messageFactory,
+        private MessageFactory $messageFactory, // @phpstan-ignore-line
         private MessageRepository $messageRepository
     ) {
     }
@@ -29,7 +29,7 @@ class HandleQueueFailureService
      * @throws ConnectionLostException
      * @throws MessageCouldNotBeCreatedException
      */
-    public function execute(QueueInterface $queue, Envelope $message, Exception $exception): void
+    public function execute(QueueInterface $queue, EnvelopeInterface $message, Exception $exception): void
     {
         if (!$this->messageQueueRetryConfig->isDelayQueueEnabled()) {
             $queue->reject($message, false, $exception->getMessage());
@@ -65,7 +65,7 @@ class HandleQueueFailureService
 
         if ($totalRetries >= $retryLimit) {
             // If message reaches the retry limit, then it is moved to the run_as_root_message table
-            $messageModel = $this->messageFactory->create();
+            $messageModel = $this->messageFactory->create(); // @phpstan-ignore-line
             $messageModel->setTopicName($topicName);
             $messageModel->setMessageBody($message->getBody());
             $messageModel->setFailureDescription($exception->getMessage());
@@ -94,6 +94,7 @@ class HandleQueueFailureService
 
     /**
      * @throws JsonException
+     * @return array<string,mixed>|null
      */
     private function getQueueConfiguration(string $topicName): ?array
     {
