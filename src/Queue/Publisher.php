@@ -8,8 +8,8 @@ use Magento\Framework\MessageQueue\EnvelopeFactory;
 use Magento\Framework\MessageQueue\ExchangeRepository;
 use Magento\Framework\MessageQueue\Publisher\ConfigInterface as PublisherConfig;
 use Magento\Framework\Phrase;
-use RunAsRoot\MessageQueueRetry\Exception\InvalidMessageQueueConnectionTypeException;
 use RunAsRoot\MessageQueueRetry\Exception\InvalidPublisherConfigurationException;
+use RunAsRoot\MessageQueueRetry\Exception\InvalidQueueConnectionTypeException;
 
 class Publisher
 {
@@ -22,7 +22,7 @@ class Publisher
 
     /**
      * @throws InvalidPublisherConfigurationException
-     * @throws InvalidMessageQueueConnectionTypeException
+     * @throws InvalidQueueConnectionTypeException
      */
     public function publish(string $topicName, string $data): void
     {
@@ -37,7 +37,7 @@ class Publisher
         }
 
         if ($connectionName !== 'amqp') {
-            throw new InvalidMessageQueueConnectionTypeException(__('Only AMQP connection is supported.'));
+            throw new InvalidQueueConnectionTypeException(__('Only AMQP connection is supported.'));
         }
 
         $exchange = $this->exchangeRepository->getByConnectionName($connectionName);
