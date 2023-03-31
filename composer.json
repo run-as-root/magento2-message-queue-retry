@@ -16,7 +16,8 @@
         "magento/module-backend": ">=102.0.5",
         "magento/module-config": ">=101.2.5",
         "magento/module-ui": ">=101.2.5",
-        "php-amqplib/php-amqplib": "^v3.2.0"
+        "php-amqplib/php-amqplib": "^v3.2.0",
+        "magento/framework-amqp": ">=100.4.3"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.5.20",
