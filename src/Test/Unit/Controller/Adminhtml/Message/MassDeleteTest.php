@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use RunAsRoot\MessageQueueRetry\Controller\Adminhtml\Message\MassDelete;
 use RunAsRoot\MessageQueueRetry\Model\Message;
 use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\MessageCollection;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\CollectionFactory;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\MessageCollectionFactory;
 use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
 
 final class MassDeleteTest extends TestCase
@@ -22,7 +22,7 @@ final class MassDeleteTest extends TestCase
     private MassDelete $sut;
     private RedirectFactory|MockObject $redirectFactoryMock;
     private MessageRepository|MockObject $messageRepositoryMock;
-    private CollectionFactory|MockObject $collectionFactoryMock;
+    private MessageCollectionFactory|MockObject $collectionFactoryMock;
     private Filter|MockObject $filterMock;
     private MessageManagerInterface|MockObject $messageManagerMock;
 
@@ -33,7 +33,7 @@ final class MassDeleteTest extends TestCase
         $contextMock->expects($this->once())->method('getMessageManager')->willReturn($this->messageManagerMock);
         $this->redirectFactoryMock = $this->createMock(RedirectFactory::class);
         $this->messageRepositoryMock = $this->createMock(MessageRepository::class);
-        $this->collectionFactoryMock = $this->createMock(CollectionFactory::class);
+        $this->collectionFactoryMock = $this->createMock(MessageCollectionFactory::class);
         $this->filterMock = $this->createMock(Filter::class);
 
         $this->sut = new MassDelete(

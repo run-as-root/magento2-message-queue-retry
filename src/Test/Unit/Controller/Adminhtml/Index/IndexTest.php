@@ -40,7 +40,8 @@ final class IndexTest extends TestCase
         $pageTitleMock = $this->createMock(Title::class);
         $pageConfigMock->expects($this->once())->method('getTitle')->willReturn($pageTitleMock);
         $pageTitleMock->expects($this->once())->method('prepend')->with(__('Messages'));
-        $pageMock->expects($this->once())->method('setActiveMenu')->with('RunAsRoot_MessageQueueRetry::listing');
+        $pageMock->expects($this->once())->method('setActiveMenu')
+            ->with('RunAsRoot_MessageQueueRetry::message_queue_retry');
 
         $result = $this->sut->execute();
 
