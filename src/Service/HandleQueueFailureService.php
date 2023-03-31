@@ -19,7 +19,7 @@ class HandleQueueFailureService
 {
     public function __construct(
         private MessageQueueRetryConfig $messageQueueRetryConfig,
-        private MessageFactory $messageFactory, 
+        private MessageFactory $messageFactory,
         private MessageRepository $messageRepository
     ) {
     }
@@ -65,7 +65,7 @@ class HandleQueueFailureService
 
         if ($totalRetries >= $retryLimit) {
             // If message reaches the retry limit, then it is moved to the run_as_root_message table
-            $messageModel = $this->messageFactory->create(); 
+            $messageModel = $this->messageFactory->create();
             $messageModel->setTopicName($topicName);
             $messageModel->setMessageBody($message->getBody());
             $messageModel->setFailureDescription($exception->getMessage());

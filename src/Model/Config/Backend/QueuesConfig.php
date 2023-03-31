@@ -17,7 +17,7 @@ use RunAsRoot\MessageQueueRetry\Validator\QueueConfigurationValidator;
 
 class QueuesConfig extends ArraySerialized
 {
-    public function __construct( 
+    public function __construct(
         Context $context,
         Registry $registry,
         ScopeConfigInterface $config,

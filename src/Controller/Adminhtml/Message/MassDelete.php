@@ -38,6 +38,7 @@ class MassDelete extends Action
                 if (!$message instanceof Message) {
                     continue;
                 }
+
                 $this->messageRepository->delete($message);
             }
 

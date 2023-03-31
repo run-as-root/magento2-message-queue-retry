@@ -32,12 +32,13 @@ class MassRequeue extends Action
         $redirect = $this->redirectFactory->create();
 
         try {
-            $collection = $this->filter->getCollection($this->collectionFactory->create()); 
+            $collection = $this->filter->getCollection($this->collectionFactory->create());
 
             foreach ($collection->getItems() as $message) {
                 if (!$message instanceof Message) {
                     continue;
                 }
+
                 $this->publishMessageToQueueService->executeByMessage($message);
             }
 

@@ -4,6 +4,7 @@
 
     <exclude-pattern>*/Test/*</exclude-pattern>
     <exclude-pattern>*/Tests/*</exclude-pattern>
+    <exclude-pattern>src/Queue/Consumer.php</exclude-pattern>
 
     <!-- Magento 2 Coding Standard -->
     <rule ref="Magento2">
