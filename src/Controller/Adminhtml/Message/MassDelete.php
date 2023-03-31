@@ -10,7 +10,7 @@ use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Ui\Component\MassAction\Filter;
 use RunAsRoot\MessageQueueRetry\Model\Message;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\CollectionFactory;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\MessageCollectionFactory;
 use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
 
 class MassDelete extends Action
@@ -21,7 +21,7 @@ class MassDelete extends Action
         Context $context,
         private MessageRepository $messageRepository,
         private RedirectFactory $redirectFactory,
-        private CollectionFactory $collectionFactory, // @phpstan-ignore-line
+        private MessageCollectionFactory $collectionFactory,
         private Filter $filter
     ) {
         parent::__construct($context);
@@ -32,7 +32,7 @@ class MassDelete extends Action
         $redirect = $this->redirectFactory->create();
 
         try {
-            $collection = $this->filter->getCollection($this->collectionFactory->create()); // @phpstan-ignore-line
+            $collection = $this->filter->getCollection($this->collectionFactory->create());
 
             foreach ($collection->getItems() as $message) {
                 if (!$message instanceof Message) {

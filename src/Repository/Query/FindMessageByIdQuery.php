@@ -13,7 +13,7 @@ class FindMessageByIdQuery
 {
     public function __construct(
         private ResourceModel $resourceModel,
-        private ModelFactory $modelFactory // @phpstan-ignore-line
+        private ModelFactory $modelFactory 
     ) {
     }
 
@@ -22,7 +22,7 @@ class FindMessageByIdQuery
      */
     public function execute(int $entityId): Message
     {
-        $model = $this->modelFactory->create(); // @phpstan-ignore-line
+        $model = $this->modelFactory->create(); 
         $this->resourceModel->load($model, $entityId);
 
         if (!$model->getId()) {
