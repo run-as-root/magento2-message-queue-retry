@@ -38,7 +38,6 @@ Requeue,Requeue
 ID,ID
 "Topic Name","Topic Name"
 "Total Retries","Total Retries"
-"Resource Id","Resource Id"
 "Failure Description","Failure Description"
 "Message Body","Message Body"
 "Created At","Created At"
