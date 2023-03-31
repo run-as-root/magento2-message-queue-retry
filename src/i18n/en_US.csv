@@ -15,9 +15,9 @@ General,General
                          default Magento behavior will run instead.","If disabled the queue messages will not be sent to the failed queue messaged grid and the
                                                                                               default Magento behavior will run instead."
 "Delay queues","Delay queues"
-"Please, provide the topic name of the delay queue that is within the communication.xml file.
-                         After the retry limit is reached the message will be sent to the failed messages grid.","Please, provide the topic name of the delay queue that is within the communication.xml file.
-                                                                                                              After the retry limit is reached the message will be sent to the failed messages grid."
+"Please, provide the topic name of the queue that is within the communication.xml file.
+                         After the retry limit is reached the message will be sent to the failed messages grid.","Please, provide the topic name of the queue that is within the communication.xml file.
+                                                                                                                                          After the retry limit is reached the message will be sent to the failed messages grid."
 "Admin Configuration","Admin Configuration"
 Listing,Listing
 Download,Download
