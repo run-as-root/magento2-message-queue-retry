@@ -18,11 +18,12 @@ utilizing The RabbitMQ's [dead letter exchange](https://www.rabbitmq.com/dlx.htm
 - RabbitMQ
 
 To be able to use this module, you have to manually configure the dead letter exchange(s) for the queue(s) you want to enable the retry mechanismm through the `queue_topology.xml` file.
-An example will be given in the Setup section.
+An example will be given in the [Configuration](#configuration) section.
 
 Other requisite is that your exchanges have to have a relation from one exchange to only one topic and queue, 
 
 For example:
+
 ![topology](docs/queue-requirement.png)
 
 ## Installation
@@ -54,10 +55,11 @@ If you use a standard configuration for the queue (without a dead-letter exchang
 This behavior will change a bit with this module. It will introduce an extra step that will check if the message has reached your retry limit,
 if so, it will be discarded from RabbitMQ and sent to the `run_as_root_message` Mysql table and stay there until manual management through the admin panel.
 
-If it has not reached the retry limit, the message will be rejected, and RabbitMQ will be sent to the dead letter exchange and routed automatically to the "delay" queue and stay there until de TTL time is reached.
-After the TTL time is reached, the message will be sent to the original queue and processed by the consumer.
+If the message has not reached the retry limit, it will be rejected, and RabbitMQ will send it to the dead letter exchange. The message will be routed automatically to the "delay" queue and stay there until de TTL time is reached.
+After the TTL time is reached, the message will be returned to its original queue.
 
 The diagram below illustrates both approaches:
+
 ![img.png](docs/flow.png)
 
 In the admin panel a new grid will be available to manage the messages that have reached the retry limit:
@@ -146,6 +148,7 @@ We need to change these two files in order to declare and configure the delay qu
             </arguments>
         </binding>
     </exchange>
+    <!--  Delay queue  -->
     <exchange name="erp_order_export_delay" connection="amqp" type="topic">
         <binding id="erp_order_export_delay" topic="erp_order_export_delay" destinationType="queue" destination="erp_order_export_delay">
             <arguments>
@@ -158,11 +161,11 @@ We need to change these two files in order to declare and configure the delay qu
 </config>
 ```
 
-In the `erp_order_export` we added the `x-dead-letter-exchange` and `x-dead-letter-routing-key` arguments to the binding, this will route the message to the `erp_order_export_delay` exchange when the message is rejected.
+In the `erp_order_export` exchange binding, we added the `x-dead-letter-exchange` and `x-dead-letter-routing-key` arguments, this will route the message to the `erp_order_export_delay` exchange when the message is rejected.
 
-In the `erp_order_export_delay` we added the same arguments, however it points to the original exchange `erp_order_export` and the TTL time is 300000ms (5 minutes).
+We added the `erp_order_export_delay` exchange and binding, it points to the original exchange (`erp_order_export`). the `x-message-ttl` argument will configure the period that the message will stay in the `erp_order_export_delay` queue, in this example for 5 minutes (300000ms).  When the lifetime expires (TTL), RabbitMQ will send the message to `erp_order_export` automatically.
 
-The `erp_order_export_delay` queue does not have a consumer, it will be used only to hold(delay) messages according with the period defined in the `x-message-ttl` argument. When the lifetime expires (TTL), RabbitMQ will send the message to `erp_order_export` automatically.
+The `erp_order_export_delay` queue does not have a consumer, it will be used only to hold(delay) messages according with the period defined in the `x-message-ttl` argument.
 
 Now you have to define toggle the activation for the retry queue module and declare the retry limit for the queue:
 
