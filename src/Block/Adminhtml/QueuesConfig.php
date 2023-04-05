@@ -17,11 +17,6 @@ class QueuesConfig extends AbstractFieldArray
         );
 
         $this->addColumn(
-            MessageQueueRetryConfig::DELAY_TOPIC_NAME,
-            [ 'label' => __('Delay Topic Name'), 'class' => 'required-entry' ]
-        );
-
-        $this->addColumn(
             MessageQueueRetryConfig::RETRY_LIMIT,
             [ 'label' => __('Retry Limit'), 'class' => 'required-entry validate-zero-or-greater' ]
         );

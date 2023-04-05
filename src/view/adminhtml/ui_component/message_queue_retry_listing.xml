@@ -106,12 +106,6 @@
                 <label translate="true">Total Retries</label>
             </settings>
         </column>
-        <column name="resource_id">
-            <settings>
-                <filter>text</filter>
-                <label translate="true">Resource Id</label>
-            </settings>
-        </column>
         <column name="failure_description">
             <settings>
                 <filter>text</filter>

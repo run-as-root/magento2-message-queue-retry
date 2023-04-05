@@ -16,6 +16,10 @@ class MessageBody extends Column
                     continue;
                 }
 
+                if (mb_strlen($item['message_body']) < 100) {
+                    continue;
+                }
+
                 $item['message_body'] = substr($item['message_body'], 0, 100) . '...';
             }
         }
