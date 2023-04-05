@@ -28,7 +28,7 @@
                     <frontend_model>RunAsRoot\MessageQueueRetry\Block\Adminhtml\QueuesConfig</frontend_model>
                     <backend_model>RunAsRoot\MessageQueueRetry\Model\Config\Backend\QueuesConfig</backend_model>
                     <comment>
-                        Please, provide the topic name of the delay queue that is within the communication.xml file.
+                        Please, provide the topic name of the queue that is within the communication.xml file.
                         After the retry limit is reached the message will be sent to the failed messages grid.
                     </comment>
                 </field>
