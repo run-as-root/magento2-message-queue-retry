@@ -1,0 +1,11 @@
+name: 'Cache Composer packages'
+runs:
+  using: 'composite'
+  steps:
+    - id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ inputs.runner-os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ inputs.runner-os }}-php-

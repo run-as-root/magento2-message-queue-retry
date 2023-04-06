@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="RunAsRoot_MessageQueueRetry::failed_queue" title="Failed Queue Management"
+                          sortOrder="1000"/>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="RunAsRoot_MessageQueueRetry::message_queue_retry"
+                                      title="Run as Root Message Queue Retry" translate="title" sortOrder="30">
+                                <resource id="RunAsRoot_MessageQueueRetry::config" title="Admin Configuration"
+                                          sortOrder="10"/>
+                                <resource id="RunAsRoot_MessageQueueRetry::listing" title="Listing" sortOrder="20"/>
+                                <resource id="RunAsRoot_MessageQueueRetry::download" title="Download" sortOrder="30"/>
+                                <resource id="RunAsRoot_MessageQueueRetry::mass_delete" title="Mass Action Delete"
+                                          sortOrder="40"/>
+                                <resource id="RunAsRoot_MessageQueueRetry::mass_requeue" title="Mass Action Requeue"
+                                          sortOrder="50"/>
+                                <resource id="RunAsRoot_MessageQueueRetry::requeue" title="Requeue" sortOrder="60"/>
+                            </resource>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

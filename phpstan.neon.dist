@@ -1,0 +1,13 @@
+parameters:
+  level: 8
+  paths:
+    - src
+  excludePaths:
+    analyseAndScan:
+      - src/Test
+      - src/Queue/Consumer.php
+  ignoreErrors:
+    - '#Method .*construct\(\) has parameter \$data with no value type specified in iterable type array#'
+
+includes:
+  - vendor/bitexpert/phpstan-magento/extension.neon

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/9.5/phpunit.xsd"
+         colors="true"
+         columns="max"
+         beStrictAboutTestsThatDoNotTestAnything="false"
+         bootstrap="./dev/tests/unit/framework/bootstrap.php">
+    <testsuite name="Unit Test Suite">
+        <directory suffix="Test.php">./src/Test/Unit</directory>
+    </testsuite>
+    <php>
+        <ini name="xdebug.max_nesting_level" value="500"/>
+        <ini name="memory_limit" value="-1"/>
+    </php>
+    <coverage includeUncoveredFiles="true" disableCodeCoverageIgnore="true">
+        <include>
+            <directory suffix=".php">./src/*</directory>
+        </include>
+        <exclude>
+            <file>./src/registration.php</file>
+        </exclude>
+        <report>
+            <html outputDirectory="reports/test-reports/html-report"/>
+            <clover outputFile="reports/test-reports/clover.xml"/>
+        </report>
+    </coverage>
+    <listeners>
+        <listener class="Magento\Framework\TestFramework\Unit\Listener\ReplaceObjectManager"/>
+    </listeners>
+    <logging>
+        <testdoxHtml outputFile="reports/test-reports/coverage.html"/>
+        <testdoxXml outputFile="reports/test-reports/phpunit.coverage.xml"/>
+        <junit outputFile="reports/test-reports/phpunit.junit.xml"/>
+    </logging>
+</phpunit>

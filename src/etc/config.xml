@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <message_queue_retry>
+            <general>
+                <enable_delay_queue>0</enable_delay_queue>
+            </general>
+        </message_queue_retry>
+    </default>
+</config>
