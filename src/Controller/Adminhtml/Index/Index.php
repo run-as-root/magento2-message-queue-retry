@@ -22,9 +22,11 @@ class Index extends Action
 
     public function execute(): Page
     {
+        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__('Messages'));
-        $resultPage->setActiveMenu(self::ADMIN_RESOURCE);
+        $resultPage->getConfig()->getTitle()->prepend(__('Messages')->render());
+        $resultPage->setActiveMenu('RunAsRoot_MessageQueueRetry::message_queue_retry');
+
         return $resultPage;
     }
 }

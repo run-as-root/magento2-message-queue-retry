@@ -8,6 +8,10 @@ use Magento\Ui\Component\Listing\Columns\Column;
 
 class Actions extends Column
 {
+    /**
+     * @param array<string, mixed> $dataSource
+     * @return array<string, mixed>
+     */
     public function prepareDataSource(array $dataSource): array
     {
         $dataSource = parent::prepareDataSource($dataSource);

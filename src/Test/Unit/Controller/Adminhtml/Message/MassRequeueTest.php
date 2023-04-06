@@ -11,12 +11,10 @@ use Magento\Framework\Message\ManagerInterface as MessageManagerInterface;
 use Magento\Ui\Component\MassAction\Filter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use RunAsRoot\MessageQueueRetry\Controller\Adminhtml\Message\MassDelete;
 use RunAsRoot\MessageQueueRetry\Controller\Adminhtml\Message\MassRequeue;
 use RunAsRoot\MessageQueueRetry\Model\Message;
 use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\MessageCollection;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\CollectionFactory;
-use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\MessageCollectionFactory;
 use RunAsRoot\MessageQueueRetry\Service\PublishMessageToQueueService;
 
 final class MassRequeueTest extends TestCase
@@ -24,7 +22,7 @@ final class MassRequeueTest extends TestCase
     private MassRequeue $sut;
     private RedirectFactory|MockObject $redirectFactoryMock;
     private PublishMessageToQueueService|MockObject $publishMessageToQueueServiceMock;
-    private CollectionFactory|MockObject $collectionFactoryMock;
+    private MessageCollectionFactory|MockObject $collectionFactoryMock;
     private Filter|MockObject $filterMock;
     private MessageManagerInterface|MockObject $messageManagerMock;
 
@@ -35,7 +33,7 @@ final class MassRequeueTest extends TestCase
         $contextMock->expects($this->once())->method('getMessageManager')->willReturn($this->messageManagerMock);
         $this->redirectFactoryMock = $this->createMock(RedirectFactory::class);
         $this->publishMessageToQueueServiceMock = $this->createMock(PublishMessageToQueueService::class);
-        $this->collectionFactoryMock = $this->createMock(CollectionFactory::class);
+        $this->collectionFactoryMock = $this->createMock(MessageCollectionFactory::class);
         $this->filterMock = $this->createMock(Filter::class);
 
         $this->sut = new MassRequeue(

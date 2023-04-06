@@ -45,6 +45,7 @@ class QueuesConfig extends ArraySerialized
      */
     public function beforeSave(): self
     {
+        /** @var string|array<string|mixed> $value */
         $value = $this->getValue();
 
         if (!is_array($value)) {

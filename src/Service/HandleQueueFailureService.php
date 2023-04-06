@@ -7,7 +7,7 @@ namespace RunAsRoot\MessageQueueRetry\Service;
 use Exception;
 use JsonException;
 use Magento\Framework\MessageQueue\ConnectionLostException;
-use Magento\Framework\MessageQueue\Envelope;
+use Magento\Framework\MessageQueue\EnvelopeInterface;
 use Magento\Framework\MessageQueue\QueueInterface;
 use PhpAmqpLib\Wire\AMQPTable;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
@@ -29,7 +29,7 @@ class HandleQueueFailureService
      * @throws ConnectionLostException
      * @throws MessageCouldNotBeCreatedException
      */
-    public function execute(QueueInterface $queue, Envelope $message, Exception $exception): void
+    public function execute(QueueInterface $queue, EnvelopeInterface $message, Exception $exception): void
     {
         if (!$this->messageQueueRetryConfig->isDelayQueueEnabled()) {
             $queue->reject($message, false, $exception->getMessage());
@@ -94,6 +94,7 @@ class HandleQueueFailureService
 
     /**
      * @throws JsonException
+     * @return array<string,mixed>|null
      */
     private function getQueueConfiguration(string $topicName): ?array
     {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Service;
 
-use RunAsRoot\MessageQueueRetry\Exception\InvalidMessageQueueConnectionTypeException;
 use RunAsRoot\MessageQueueRetry\Exception\InvalidPublisherConfigurationException;
+use RunAsRoot\MessageQueueRetry\Exception\InvalidQueueConnectionTypeException;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
 use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
 use RunAsRoot\MessageQueueRetry\Model\Message;
@@ -23,7 +23,7 @@ class PublishMessageToQueueService
     /**
      * @throws MessageCouldNotBeDeletedException
      * @throws MessageNotFoundException
-     * @throws InvalidMessageQueueConnectionTypeException
+     * @throws InvalidQueueConnectionTypeException
      * @throws InvalidPublisherConfigurationException
      */
     public function executeById(int $messageId): void
@@ -36,7 +36,7 @@ class PublishMessageToQueueService
     /**
      * @throws MessageCouldNotBeDeletedException
      * @throws MessageNotFoundException
-     * @throws InvalidMessageQueueConnectionTypeException
+     * @throws InvalidQueueConnectionTypeException
      * @throws InvalidPublisherConfigurationException
      */
     public function executeByMessage(Message $message): void

@@ -29,16 +29,16 @@ class Requeue extends Action
         $redirect->setPath('message_queue_retry/index/index');
 
         if (!$messageId) {
-            $this->messageManager->addErrorMessage(__('Invalid message id provided in the request params'));
+            $this->messageManager->addErrorMessage(__('Invalid message id provided in the request params')->render());
             return $redirect;
         }
 
         try {
             $this->publishMessageToQueueService->executeById($messageId);
-            $this->messageManager->addSuccessMessage(__('Message queued successfully'));
+            $this->messageManager->addSuccessMessage(__('Message queued successfully')->render());
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage(
-                __('An error occurred while trying to requeue the message: %1', $e->getMessage())
+                __('An error occurred while trying to requeue the message: %1', $e->getMessage())->render()
             );
         }
 

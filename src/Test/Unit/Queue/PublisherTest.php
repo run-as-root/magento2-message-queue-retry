@@ -13,7 +13,7 @@ use Magento\Framework\MessageQueue\Publisher\Config\PublisherConnectionInterface
 use Magento\Framework\MessageQueue\Publisher\ConfigInterface as PublisherConfig;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use RunAsRoot\MessageQueueRetry\Exception\InvalidMessageQueueConnectionTypeException;
+use RunAsRoot\MessageQueueRetry\Exception\InvalidQueueConnectionTypeException;
 use RunAsRoot\MessageQueueRetry\Exception\InvalidPublisherConfigurationException;
 use RunAsRoot\MessageQueueRetry\Queue\Publisher;
 
@@ -76,7 +76,7 @@ final class PublisherTest extends TestCase
         $topicName = 'topic.name';
         $data = '{"foo": "bar"}';
 
-        $this->expectException(InvalidMessageQueueConnectionTypeException::class);
+        $this->expectException(InvalidQueueConnectionTypeException::class);
 
         $publisherConfigItemMock = $this->createMock(PublisherConfigItemInterface::class);
         $this->publisherConfigMock->expects($this->once())->method('getPublisher')->willReturn($publisherConfigItemMock);

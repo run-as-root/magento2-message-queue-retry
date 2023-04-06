@@ -8,8 +8,8 @@ use Magento\Framework\MessageQueue\EnvelopeFactory;
 use Magento\Framework\MessageQueue\ExchangeRepository;
 use Magento\Framework\MessageQueue\Publisher\ConfigInterface as PublisherConfig;
 use Magento\Framework\Phrase;
-use RunAsRoot\MessageQueueRetry\Exception\InvalidMessageQueueConnectionTypeException;
 use RunAsRoot\MessageQueueRetry\Exception\InvalidPublisherConfigurationException;
+use RunAsRoot\MessageQueueRetry\Exception\InvalidQueueConnectionTypeException;
 
 class Publisher
 {
@@ -22,7 +22,7 @@ class Publisher
 
     /**
      * @throws InvalidPublisherConfigurationException
-     * @throws InvalidMessageQueueConnectionTypeException
+     * @throws InvalidQueueConnectionTypeException
      */
     public function publish(string $topicName, string $data): void
     {
@@ -32,12 +32,12 @@ class Publisher
         try {
             $connectionName = $this->publisherConfig->getPublisher($topicName)->getConnection()->getName();
         } catch (\Exception $e) {
-            $exceptionMessage = $e->getMessage() instanceof Phrase ? $e->getMessage() : new Phrase($e->getMessage());
+            $exceptionMessage = new Phrase($e->getMessage());
             throw new InvalidPublisherConfigurationException($exceptionMessage, $e, $e->getCode());
         }
 
         if ($connectionName !== 'amqp') {
-            throw new InvalidMessageQueueConnectionTypeException(__('Only AMQP connection is supported.'));
+            throw new InvalidQueueConnectionTypeException(__('Only AMQP connection is supported.'));
         }
 
         $exchange = $this->exchangeRepository->getByConnectionName($connectionName);
@@ -45,6 +45,9 @@ class Publisher
         $exchange->enqueue($topicName, $envelope);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getEnvelopeData(string $topicName, string $data): array
     {
         return [

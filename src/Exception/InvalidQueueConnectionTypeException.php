@@ -6,6 +6,6 @@ namespace RunAsRoot\MessageQueueRetry\Exception;
 
 use Magento\Framework\Exception\LocalizedException;
 
-class InvalidMessageQueueConnectionTypeException extends LocalizedException
+class InvalidQueueConnectionTypeException extends LocalizedException
 {
 }

@@ -11,6 +11,7 @@ use RunAsRoot\MessageQueueRetry\System\Config\MessageQueueRetryConfig as ConfigF
 class QueueConfigurationValidator
 {
     /**
+     * @param array<string, mixed> $configValues
      * @throws InvalidQueueConfigurationException
      */
     public function validate(array $configValues): bool
@@ -40,6 +41,7 @@ class QueueConfigurationValidator
     }
 
     /**
+     * @param array<string, mixed> $configValues
      * @throws InvalidQueueConfigurationException
      */
     private function performUniqueValidation(array $configValues, string $field, string $name): void

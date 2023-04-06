@@ -1,3 +1,8 @@
+![Magento 2](https://img.shields.io/badge/Magento-2.5.*-orange)
+![PHP](https://img.shields.io/badge/php-8.1-blue)
+![packagist](https://img.shields.io/badge/packagist-f28d1a)
+![build](https://github.com/run-as-root/magento2-message-queue-retry/actions/workflows/test_extension.yml/badge.svg)
+
 # run-as-root/magento2-message-queue-retry
 
 It gives the possibility to process the same queue message more than once, 
