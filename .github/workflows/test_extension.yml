@@ -80,12 +80,3 @@ jobs:
 
       - name: PHP Unit
         run: composer test
-
-      - name: phpunit-coverage-badge
-        uses: timkrase/phpunit-coverage-badge@v1.2.1
-        with:
-          report: reports/test-reports/clover.xml
-          coverage_badge_path: output/coverage.svg
-          push_badge: true
-          commit_message: "Update coverage badge"
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
