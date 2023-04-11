@@ -63,6 +63,6 @@
         "sniffer": "vendor/bin/phpcs --colors -p ./src --standard=phpcs-ruleset.xml",
         "fix-style": "vendor/bin/phpcbf --colors -p ./src --standard=phpcs-ruleset.xml",
         "sniffer:php8.1": "vendor/bin/phpcs -p ./src --standard=vendor/phpcompatibility/php-compatibility/PHPCompatibility --runtime-set testVersion 8.1",
-        "mess-detector": "vendor/bin/phpmd src html phpmd-ruleset.xml --exclude \"Test,src/Queue/Consumer.php\" --strict --reportfile reports/phpmd/phpmd.html"
+        "mess-detector": "vendor/bin/phpmd src html phpmd-ruleset.xml --exclude \"Test\" --strict --reportfile reports/phpmd/phpmd.html"
     }
 }
