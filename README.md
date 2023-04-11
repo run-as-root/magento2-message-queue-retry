@@ -5,7 +5,7 @@
 
 # run-as-root/magento2-message-queue-retry
 
-It gives the possibility to process the same queue message more than once, 
+It gives the possibility to process the same queue message more than once,
 utilizing The RabbitMQ's [dead letter exchange](https://www.rabbitmq.com/dlx.html)  feature.
 
 ## Table of Contents
@@ -25,7 +25,7 @@ utilizing The RabbitMQ's [dead letter exchange](https://www.rabbitmq.com/dlx.htm
 To be able to use this module, you have to manually configure the dead letter exchange(s) for the queue(s) you want to enable the retry mechanismm through the `queue_topology.xml` file.
 An example will be given in the [Configuration](#configuration) section.
 
-Other requisite is that your exchanges have to have a relation from one exchange to only one topic and queue, 
+Other requisite is that your exchanges have to have a relation from one exchange to only one topic and queue,
 
 For example:
 
@@ -95,7 +95,7 @@ Is possible to configure the ACL for each action in the grid and the module conf
 
 Two steps are necessary to configure the retry for a queue:
 1. Configure the dead letter exchange
-1. Enable the message queue retry and delclare the retry limit configuration
+2. Enable the message queue retry and declare the retry limit configuration
 
 Let's imagine a scenario that the `erp_order_export` queue already exists in your project and to simplify the example the topic name, exchange name and queue name are the same: `erp_order_export`.
 
@@ -178,7 +178,7 @@ System > Configuration > RUN-AS-ROOT > Message Queue Retry
 
 ![img.png](docs/configuration.png)
 
-Note that if the queue is not declared in the configuration it will the default Magento consumer behavior.
+**Important note:** Make sure to configure the retry limit of your queue in the module configuration. If you configure the dead letter exchange and do not set the retry limit in the configuration(System > Configuration > RUN-AS-ROOT > Message Queue Retry), the message will be in a retry loop, that is, execute until the consumer process the message without throwing an exception. This is the default behavior for the RabbitMQ dead letter exchange and will work this way even if this module is not installed.
 
 For more information of how to configure message queues in Magento 2, you can take a look [here](https://developer.adobe.com/commerce/php/development/components/message-queues/configuration/).
 
