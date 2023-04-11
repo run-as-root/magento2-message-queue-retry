@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RunAsRoot\MessageQueueRetry\Service;
 
 use Magento\Framework\MessageQueue\EnvelopeInterface;

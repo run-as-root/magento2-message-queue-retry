@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Plugin;
 
@@ -9,7 +11,7 @@ use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
 use RunAsRoot\MessageQueueRetry\Service\IsMessageShouldBeSavedForRetryService;
 use RunAsRoot\MessageQueueRetry\Service\SaveFailedMessageService;
 
-class QueuePlugin
+class HandleQueueMessageRejectPlugin
 {
     public function __construct(
         private IsMessageShouldBeSavedForRetryService $isMessageShouldBeSavedForRetryService,

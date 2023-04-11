@@ -26,28 +26,27 @@ class IsMessageShouldBeSavedForRetryService
         }
 
         $totalRetries = $this->getMessageRetriesCountService->execute($message);
+
         if ($totalRetries === 0) {
             return false;
         }
 
         $messageProperties = $message->getProperties();
         $topicName = $messageProperties['topic_name'] ?? null;
+
         if (!$topicName) {
             return false;
         }
 
         $queueConfiguration = $this->getQueueConfiguration($topicName);
+
         if (!$queueConfiguration) {
             return false;
         }
 
         $retryLimit = $queueConfiguration[MessageQueueRetryConfig::RETRY_LIMIT] ?? 0;
 
-        if ($totalRetries >= $retryLimit) {
-            return true;
-        }
-
-        return false;
+        return $totalRetries >= $retryLimit;
     }
 
     /**
