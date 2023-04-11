@@ -32,6 +32,7 @@ class HandleQueueMessageRejectPlugin
     ): void {
         if (!$error) {
             $proceed($envelope, $requeue, $error);
+            return;
         }
 
         $shouldBeSavedForRetry = $this->isMessageShouldBeSavedForRetryService->execute($envelope);
