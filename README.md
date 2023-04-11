@@ -178,7 +178,7 @@ System > Configuration > RUN-AS-ROOT > Message Queue Retry
 
 ![img.png](docs/configuration.png)
 
-**Important note:** If the Exchange Binding has configured Dead Letter Exchange, but the Topic is not declared in the module's configuration - it will retry the rejected message infinitely. This is a default Magento consumer behavior.
+**Important note:** Make sure to configure the retry limit of your queue in the module configuration. If you configure the dead letter exchange and do not set the retry limit in the configuration(System > Configuration > RUN-AS-ROOT > Message Queue Retry), the message will be in a retry loop, that is, execute until the consumer process the message without throwing an exception. This is the default behavior for the RabbitMQ dead letter exchange and will work this way even if this module is not installed.
 
 For more information of how to configure message queues in Magento 2, you can take a look [here](https://developer.adobe.com/commerce/php/development/components/message-queues/configuration/).
 
