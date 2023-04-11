@@ -1,6 +1,6 @@
 {
     "name": "run-as-root/magento2-message-queue-retry",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Provides message queue retry processing functionality via RabbitMQ's dead letter exchange.",
     "type": "magento2-module",
     "license": "MIT",
