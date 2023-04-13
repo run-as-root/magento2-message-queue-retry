@@ -7,36 +7,39 @@ namespace RunAsRoot\MessageQueueRetry\Test\Unit\Service;
 use Magento\Framework\MessageQueue\Envelope;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use RunAsRoot\MessageQueueRetry\Repository\Query\FindQueueRetryLimitByTopicNameQuery;
 use RunAsRoot\MessageQueueRetry\Service\GetMessageRetriesCountService;
 use RunAsRoot\MessageQueueRetry\Service\IsMessageShouldBeSavedForRetryService;
 use RunAsRoot\MessageQueueRetry\System\Config\MessageQueueRetryConfig;
 
 final class IsMessageShouldBeSavedForRetryServiceTest extends TestCase
 {
+    private IsMessageShouldBeSavedForRetryService $sut;
     private MessageQueueRetryConfig|MockObject $messageQueueRetryConfigMock;
     private GetMessageRetriesCountService|MockObject $getMessageRetriesCountServiceMock;
-    private IsMessageShouldBeSavedForRetryService $sut;
+    private FindQueueRetryLimitByTopicNameQuery|MockObject $findQueueRetryLimitByTopicNameQueryMock;
 
     protected function setUp(): void
     {
         $this->messageQueueRetryConfigMock = $this->createMock(MessageQueueRetryConfig::class);
         $this->getMessageRetriesCountServiceMock = $this->createMock(GetMessageRetriesCountService::class);
-
-        $this->messageQueueRetryConfigMock->method('isDelayQueueEnabled')->willReturn(true);
+        $this->findQueueRetryLimitByTopicNameQueryMock = $this->createMock(FindQueueRetryLimitByTopicNameQuery::class);
 
         $this->sut = new IsMessageShouldBeSavedForRetryService(
             $this->messageQueueRetryConfigMock,
-            $this->getMessageRetriesCountServiceMock
+            $this->getMessageRetriesCountServiceMock,
+            $this->findQueueRetryLimitByTopicNameQueryMock
         );
     }
 
     public function testItReturnsTrueIfRetryLimitIsReached(): void
     {
         $testMessageProperties = ['topic_name' => 'sample_topic'];
-        $testQueueConfiguration = ['sample_topic' => ['retry_limit' => 2]];
 
+        $this->messageQueueRetryConfigMock->method('isDelayQueueEnabled')->willReturn(true);
         $this->getMessageRetriesCountServiceMock->expects($this->once())->method('execute')->willReturn(2);
-        $this->messageQueueRetryConfigMock->expects($this->once())->method('getDelayQueues')->willReturn($testQueueConfiguration);
+        $this->findQueueRetryLimitByTopicNameQueryMock->expects($this->once())->method('execute')
+            ->with('sample_topic')->willReturn(2);
 
         $result = $this->sut->execute(new Envelope('', $testMessageProperties));
         $this->assertTrue($result);
@@ -45,10 +48,11 @@ final class IsMessageShouldBeSavedForRetryServiceTest extends TestCase
     public function testItReturnsFalseIfRetryLimitIsNotReached(): void
     {
         $testMessageProperties = ['topic_name' => 'sample_topic'];
-        $testQueueConfiguration = ['sample_topic' => ['retry_limit' => 2]];
 
+        $this->messageQueueRetryConfigMock->method('isDelayQueueEnabled')->willReturn(true);
         $this->getMessageRetriesCountServiceMock->expects($this->once())->method('execute')->willReturn(1);
-        $this->messageQueueRetryConfigMock->expects($this->once())->method('getDelayQueues')->willReturn($testQueueConfiguration);
+        $this->findQueueRetryLimitByTopicNameQueryMock->expects($this->once())->method('execute')
+            ->with('sample_topic')->willReturn(2);
 
         $result = $this->sut->execute(new Envelope('', $testMessageProperties));
         $this->assertFalse($result);
@@ -57,22 +61,11 @@ final class IsMessageShouldBeSavedForRetryServiceTest extends TestCase
     public function testItReturnsFalseIfQueueConfigHasNoRetryLimit(): void
     {
         $testMessageProperties = ['topic_name' => 'sample_topic'];
-        $testQueueConfiguration = ['sample_topic' => []];
 
+        $this->messageQueueRetryConfigMock->method('isDelayQueueEnabled')->willReturn(true);
         $this->getMessageRetriesCountServiceMock->expects($this->once())->method('execute')->willReturn(1);
-        $this->messageQueueRetryConfigMock->expects($this->once())->method('getDelayQueues')->willReturn($testQueueConfiguration);
-
-        $result = $this->sut->execute(new Envelope('', $testMessageProperties));
-        $this->assertFalse($result);
-    }
-
-    public function testItReturnsFalseIfQueueIsNotConfigured(): void
-    {
-        $testMessageProperties = ['topic_name' => 'sample_topic'];
-        $testQueueConfiguration = ['another_topic' => ['retry_limit' => 1]];
-
-        $this->getMessageRetriesCountServiceMock->expects($this->once())->method('execute')->willReturn(1);
-        $this->messageQueueRetryConfigMock->expects($this->once())->method('getDelayQueues')->willReturn($testQueueConfiguration);
+        $this->findQueueRetryLimitByTopicNameQueryMock->expects($this->once())->method('execute')
+            ->with('sample_topic')->willReturn(null);
 
         $result = $this->sut->execute(new Envelope('', $testMessageProperties));
         $this->assertFalse($result);
@@ -80,6 +73,7 @@ final class IsMessageShouldBeSavedForRetryServiceTest extends TestCase
 
     public function testItReturnsFalseIfMessageHasNoTopicName(): void
     {
+        $this->messageQueueRetryConfigMock->method('isDelayQueueEnabled')->willReturn(true);
         $this->getMessageRetriesCountServiceMock->expects($this->once())->method('execute')->willReturn(1);
 
         $result = $this->sut->execute(new Envelope('', []));
@@ -88,6 +82,7 @@ final class IsMessageShouldBeSavedForRetryServiceTest extends TestCase
 
     public function testItReturnsFalseIfItIsFirstTimeConsuming(): void
     {
+        $this->messageQueueRetryConfigMock->method('isDelayQueueEnabled')->willReturn(true);
         $this->getMessageRetriesCountServiceMock->expects($this->once())->method('execute')->willReturn(0);
 
         $result = $this->sut->execute(new Envelope('', []));
@@ -96,9 +91,7 @@ final class IsMessageShouldBeSavedForRetryServiceTest extends TestCase
 
     public function testItReturnsFalseIfConfigDisabled(): void
     {
-        $this->messageQueueRetryConfigMock->expects($this->once())
-            ->method('isDelayQueueEnabled')
-            ->willReturn(false);
+        $this->messageQueueRetryConfigMock->expects($this->once())->method('isDelayQueueEnabled')->willReturn(false);
 
         $result = $this->sut->execute(new Envelope('', []));
         $this->assertFalse($result);

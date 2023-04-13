@@ -2,7 +2,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\Framework\MessageQueue\QueueInterface">
-        <plugin name="run-as-root_message_queue_retry" type="RunAsRoot\MessageQueueRetry\Plugin\HandleQueueMessageRejectPlugin"/>
+        <plugin name="run-as-root_message_queue_retry"
+                type="RunAsRoot\MessageQueueRetry\Plugin\HandleQueueMessageRejectPlugin"/>
     </type>
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
@@ -21,6 +22,32 @@
             </argument>
             <argument name="resourceModel" xsi:type="string">
                 RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="RunAsRoot\MessageQueueRetry\Repository\Query\FindQueueRetryLimitByTopicNameQuery">
+        <arguments>
+            <argument name="configStorage" xsi:type="object">RunAsRootQueueRetryDataStorage</argument>
+        </arguments>
+    </type>
+    <virtualType name="RunAsRootQueueRetryDataStorage" type="Magento\Framework\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">RunAsRootQueueRetryReader</argument>
+            <argument name="cacheId" xsi:type="const">
+                RunAsRoot\MessageQueueRetry\Config\QueueRetryConfigInterface::CACHE_KEY
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="RunAsRootQueueRetryReader" type="Magento\Framework\Config\Reader\Filesystem">
+        <arguments>
+            <argument name="fileName" xsi:type="const">
+                RunAsRoot\MessageQueueRetry\Config\QueueRetryConfigInterface::FILE_NAME
+            </argument>
+            <argument name="converter" xsi:type="object">
+                RunAsRoot\MessageQueueRetry\Converter\QueueRetryXmlToArrayConverter
+            </argument>
+            <argument name="schemaLocator" xsi:type="object">
+                RunAsRoot\MessageQueueRetry\SchemaLocator\QueueRetrySchemaLocator
             </argument>
         </arguments>
     </virtualType>
