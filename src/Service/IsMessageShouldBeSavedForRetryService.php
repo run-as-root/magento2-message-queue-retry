@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Service;
 
-use JsonException;
 use Magento\Framework\MessageQueue\EnvelopeInterface;
+use RunAsRoot\MessageQueueRetry\Repository\Query\FindQueueRetryLimitByTopicNameQuery;
 use RunAsRoot\MessageQueueRetry\System\Config\MessageQueueRetryConfig;
 
 class IsMessageShouldBeSavedForRetryService
 {
     public function __construct(
         private MessageQueueRetryConfig $messageQueueRetryConfig,
-        private GetMessageRetriesCountService $getMessageRetriesCountService
+        private GetMessageRetriesCountService $getMessageRetriesCountService,
+        private FindQueueRetryLimitByTopicNameQuery $findQueueRetryLimitByTopicNameQuery
     ) {
     }
 
-    /**
-     * @throws JsonException
-     */
     public function execute(EnvelopeInterface $message): bool
     {
         if (!$this->messageQueueRetryConfig->isDelayQueueEnabled()) {
@@ -38,24 +36,12 @@ class IsMessageShouldBeSavedForRetryService
             return false;
         }
 
-        $queueConfiguration = $this->getQueueConfiguration($topicName);
+        $retryLimit = $this->findQueueRetryLimitByTopicNameQuery->execute($topicName);
 
-        if (!$queueConfiguration) {
+        if ($retryLimit === null) {
             return false;
         }
 
-        $retryLimit = $queueConfiguration[MessageQueueRetryConfig::RETRY_LIMIT] ?? 0;
-
         return $totalRetries >= $retryLimit;
-    }
-
-    /**
-     * @throws JsonException
-     * @return array<string,mixed>|null
-     */
-    private function getQueueConfiguration(string $topicName): ?array
-    {
-        $delayQueueConfiguration = $this->messageQueueRetryConfig->getDelayQueues();
-        return $delayQueueConfiguration[$topicName] ?? null;
     }
 }
