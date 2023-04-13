@@ -193,10 +193,10 @@ Now you have to toggle the activation for the retry queue module:
 
 System > Configuration > RUN-AS-ROOT > Message Queue Retry
 
-![img.png](docs/configuration.png)
+![img.png](docs/module-configuration.png)
 
-**Important note:** Make sure to configure the retry limit of your queue with the `queue_retry.xml` file and enable the message queue retry configuration. 
-If you configure the dead letter exchange and not do the steps mentioned, the message will be in a retry loop, that is, execute until the consumer process the message without throwing an exception. 
+**Important note:** Make sure to configure the retry limit of your queue with the `queue_retry.xml` file and enable the message queue retry configuration.
+If you configure the dead letter exchange and do not do the steps mentioned, the message will be in a retry loop. In other words, it will execute until the consumer processes the message without throwing an exception.
 This is the default behavior for the RabbitMQ dead letter exchange and will work this way even if this module is not installed.
 
 For more information of how to configure message queues in Magento 2, you can take a look [here](https://developer.adobe.com/commerce/php/development/components/message-queues/configuration/).
