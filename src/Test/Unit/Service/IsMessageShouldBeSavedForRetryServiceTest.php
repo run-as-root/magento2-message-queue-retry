@@ -13,9 +13,9 @@ use RunAsRoot\MessageQueueRetry\System\Config\MessageQueueRetryConfig;
 
 final class IsMessageShouldBeSavedForRetryServiceTest extends TestCase
 {
+    private IsMessageShouldBeSavedForRetryService $sut;
     private MessageQueueRetryConfig|MockObject $messageQueueRetryConfigMock;
     private GetMessageRetriesCountService|MockObject $getMessageRetriesCountServiceMock;
-    private IsMessageShouldBeSavedForRetryService $sut;
 
     protected function setUp(): void
     {

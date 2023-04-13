@@ -22,16 +22,6 @@
                         default Magento behavior will run instead.
                     </comment>
                 </field>
-                <field id="delay_queues" translate="label" type="text" sortOrder="20" showInDefault="1"
-                       showInWebsite="0" showInStore="0" canRestore="1">
-                    <label>Delay queues</label>
-                    <frontend_model>RunAsRoot\MessageQueueRetry\Block\Adminhtml\QueuesConfig</frontend_model>
-                    <backend_model>RunAsRoot\MessageQueueRetry\Model\Config\Backend\QueuesConfig</backend_model>
-                    <comment>
-                        Please, provide the topic name of the queue that is within the communication.xml file.
-                        After the retry limit is reached the message will be sent to the failed messages grid.
-                    </comment>
-                </field>
             </group>
         </section>
     </system>
