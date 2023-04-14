@@ -24,7 +24,7 @@ class FindQueueRetryLimitByTopicNameQueryTest extends TestCase
      */
     public function testExecute($expected, $topicName, $config): void
     {
-        $configKey = QueueRetryConfigInterface::CONFIG_KEY_NAME . '/' . $topicName;
+        $configKey = QueueRetryConfigInterface::CONFIG_KEY_NAME;
         $this->configStorageMock->expects($this->once())->method('get')->with($configKey)->willReturn($config);
 
         $result = $this->sut->execute($topicName);
@@ -35,9 +35,36 @@ class FindQueueRetryLimitByTopicNameQueryTest extends TestCase
     public function dataProvider(): array
     {
         return [
-            [3, 'sample_topic', ['retry_limit' => '3']],
-            [null, 'sample_topic', ['some_key' => '3']],
-            [null, 'sample_topic', null],
+            [
+                5,
+                'sample_topic',
+                [
+                    'sample_topic' => ['retry_limit' => '5'],
+                    'sample_topic2' => ['retry_limit' => '3'],
+                    'sample_topic3' => ['retry_limit' => '8']
+                ],
+            ],
+            [
+                3,
+                'sample_topic2',
+                [
+                    'sample_topic' => ['retry_limit' => '5'],
+                    'sample_topic2' => ['retry_limit' => '3'],
+                    'sample_topic3' => ['retry_limit' => '8']
+                ],
+            ],
+            [
+                null,
+                'sample_topic2',
+                [
+                    'sample_topic' => ['retry_limit' => '5'],
+                ],
+            ],
+            [
+                null,
+                'sample_topic2',
+                null,
+            ],
         ];
     }
 }

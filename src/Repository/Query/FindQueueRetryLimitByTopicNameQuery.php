@@ -15,14 +15,20 @@ class FindQueueRetryLimitByTopicNameQuery
 
     public function execute(string $topicName): ?int
     {
-        $configKey = QueueRetryConfigInterface::CONFIG_KEY_NAME . '/' . $topicName;
-        $queueRetryTopic = $this->configStorage->get($configKey);
+        $topics = $this->configStorage->get(QueueRetryConfigInterface::CONFIG_KEY_NAME);
+
+        if (!$topics) {
+            return null;
+        }
+
+        $queueRetryTopic = $topics[$topicName] ??  null;
 
         if (!$queueRetryTopic) {
             return null;
         }
 
-        $retryLimitKey = QueueRetryConfigInterface::RETRY_LIMIT;
-        return isset($queueRetryTopic[$retryLimitKey]) ? (int)$queueRetryTopic[$retryLimitKey] : null;
+        $retryLimit = $queueRetryTopic[QueueRetryConfigInterface::RETRY_LIMIT] ?? null;
+
+        return $retryLimit ? (int)$retryLimit : null;
     }
 }
