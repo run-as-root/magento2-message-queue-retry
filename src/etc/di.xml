@@ -49,6 +49,9 @@
             <argument name="schemaLocator" xsi:type="object">
                 RunAsRoot\MessageQueueRetry\SchemaLocator\QueueRetrySchemaLocator
             </argument>
+            <argument name="idAttributes" xsi:type="array">
+                <item name="/config/topic" xsi:type="string">name</item>
+            </argument>
         </arguments>
     </virtualType>
 </config>
