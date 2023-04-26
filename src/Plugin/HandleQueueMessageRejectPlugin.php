@@ -27,22 +27,22 @@ class HandleQueueMessageRejectPlugin
         QueueInterface $subject,
         callable $proceed,
         EnvelopeInterface $envelope,
-        bool $requeue,
-        string $error
+        bool $requeue = true,
+        string $rejectionMessage = null
     ): void {
-        if (!$error) {
-            $proceed($envelope, $requeue, $error);
+        if (!$rejectionMessage) {
+            $proceed($envelope, $requeue, $rejectionMessage);
             return;
         }
 
         $shouldBeSavedForRetry = $this->isMessageShouldBeSavedForRetryService->execute($envelope);
 
         if (!$shouldBeSavedForRetry) {
-            $proceed($envelope, $requeue, $error);
+            $proceed($envelope, $requeue, $rejectionMessage);
             return;
         }
 
-        $this->saveFailedMessageService->execute($envelope, $error);
+        $this->saveFailedMessageService->execute($envelope, $rejectionMessage);
         $subject->acknowledge($envelope);
     }
 }
