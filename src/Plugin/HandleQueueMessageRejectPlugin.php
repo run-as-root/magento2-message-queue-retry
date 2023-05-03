@@ -35,6 +35,11 @@ class HandleQueueMessageRejectPlugin
             return;
         }
 
+        if (str_contains($rejectionMessage, 'MESSAGE_QUEUE_SKIP_RETRY')) {
+            $proceed($envelope, $requeue, $rejectionMessage);
+            return;
+        }
+
         $shouldBeSavedForRetry = $this->isMessageShouldBeSavedForRetryService->execute($envelope);
 
         if (!$shouldBeSavedForRetry) {
