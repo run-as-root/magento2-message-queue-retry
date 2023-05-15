@@ -90,4 +90,33 @@ final class HandleQueueMessageRejectPluginTest extends TestCase
 
         self::assertTrue($this->isProceedCalled);
     }
+
+    /**
+     * @dataProvider skipRetryDataProvider
+     */
+    public function testItShouldSkipRetryWhenExceptionMessageContainsAnUniqueIdentifier(string $exceptionMessage): void
+    {
+        $this->saveFailedMessageServiceMock->expects($this->never())->method('execute');
+        $this->isMessageShouldBeSavedForRetryServiceMock->expects($this->never())->method('execute');
+
+        $this->sut->aroundReject(
+            $this->queueMock,
+            $this->testProceedFn,
+            new Envelope('body'),
+            false,
+            $exceptionMessage
+        );
+
+        self::assertTrue($this->isProceedCalled);
+    }
+
+    public function skipRetryDataProvider(): array
+    {
+        return [
+            ['Some Error MESSAGE_QUEUE_SKIP_RETRY'],
+            ['MESSAGE_QUEUE_SKIP_RETRY'],
+            ['Some Error MESSAGE_QUEUE_SKIP_RETRY Some Error'],
+            ['Some Error MESSAGE_QUEUE_SKIP_RETRY Some Error MESSAGE_QUEUE_SKIP_RETRY'],
+        ];
+    }
 }
