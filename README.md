@@ -14,7 +14,10 @@ utilizing The RabbitMQ's [dead letter exchange](https://www.rabbitmq.com/dlx.htm
 - [Features](#features)
 - [How it works](#how-it-works)
 - [Configuration](#configuration)
+- [Skipping the retry](#skipping-the-retry)
 - [License](#licence)
+
+---
 
 ## Prerequisites
 
@@ -43,6 +46,8 @@ To enable the module:
 bin/magento module:enable RunAsRoot_MessageQueueRetry
 ```
 
+---
+
 ## Features
 
 - Toggle activation
@@ -52,6 +57,7 @@ bin/magento module:enable RunAsRoot_MessageQueueRetry
     - Delete the message
     - Download the message body
 
+---
 ## How it works
 
 The default Magento's consumer behavior is to reject the message when an exception is thrown during the consumer's execution.
@@ -90,6 +96,8 @@ The grid also has a mass action to delete or requeue the selected messages.
 Is possible to configure the ACL for each action in the grid and the module configuration:
 
 ![img.png](docs/acl.png)
+
+---
 
 ### Configuration
 
@@ -195,11 +203,21 @@ System > Configuration > RUN-AS-ROOT > Message Queue Retry
 
 ![img.png](docs/module-configuration.png)
 
+---
+
+### Skipping the retry
+
+In case you have a queue configured for retry but there is some scenario that doesn't need the message to be processed again, just add concatenate the `MESSAGE_QUEUE_SKIP_RETRY` string in the exception message. With it the message will not enter in the retry loop.
+
+---
+
 **Important note:** Make sure to configure the retry limit of your queue with the `queue_retry.xml` file and enable the message queue retry configuration.
 If you configure the dead letter exchange and do not do the steps mentioned, the message will be in a retry loop. In other words, it will execute until the consumer processes the message without throwing an exception.
 This is the default behavior for the RabbitMQ dead letter exchange and will work this way even if this module is not installed.
 
 For more information of how to configure message queues in Magento 2, you can take a look [here](https://developer.adobe.com/commerce/php/development/components/message-queues/configuration/).
+
+---
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)
