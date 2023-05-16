@@ -107,7 +107,7 @@ final class HandleQueueMessageRejectPluginTest extends TestCase
             $exceptionMessage
         );
 
-        self::assertTrue($this->isProceedCalled);
+        self::assertFalse($this->isProceedCalled);
     }
 
     public function skipRetryDataProvider(): array
