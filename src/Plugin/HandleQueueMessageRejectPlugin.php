@@ -36,7 +36,7 @@ class HandleQueueMessageRejectPlugin
         }
 
         if (str_contains($rejectionMessage, 'MESSAGE_QUEUE_SKIP_RETRY')) {
-            $proceed($envelope, $requeue, $rejectionMessage);
+            $subject->acknowledge($envelope);
             return;
         }
 
