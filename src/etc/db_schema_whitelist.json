@@ -17,5 +17,21 @@
         "constraint": {
             "PRIMARY": true
         }
+    },
+    "run_as_root_queue_error_message": {
+        "column": {
+            "entity_id": true,
+            "topic_name": true,
+            "message_body": true,
+            "failure_description": true,
+            "total_retries": true,
+            "created_at": true
+        },
+        "index": {
+            "RUN_AS_ROOT_QUEUE_ERROR_MESSAGE_TOPIC_NAME": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
     }
 }

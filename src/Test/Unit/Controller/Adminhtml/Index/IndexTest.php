@@ -39,7 +39,7 @@ final class IndexTest extends TestCase
         $pageMock->expects($this->once())->method('getConfig')->willReturn($pageConfigMock);
         $pageTitleMock = $this->createMock(Title::class);
         $pageConfigMock->expects($this->once())->method('getTitle')->willReturn($pageTitleMock);
-        $pageTitleMock->expects($this->once())->method('prepend')->with(__('Messages'));
+        $pageTitleMock->expects($this->once())->method('prepend')->with(__('Queue Error Messages'));
         $pageMock->expects($this->once())->method('setActiveMenu')
             ->with('RunAsRoot_MessageQueueRetry::message_queue_retry');
 

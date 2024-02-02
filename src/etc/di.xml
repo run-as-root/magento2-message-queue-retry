@@ -9,19 +9,19 @@
         <arguments>
             <argument name="collections" xsi:type="array">
                 <item name="message_queue_retry_listing_data_source" xsi:type="string">
-                    RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\Grid\Collection
+                    RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessage\Grid\Collection
                 </item>
             </argument>
         </arguments>
     </type>
-    <virtualType name="RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\Grid\Collection"
+    <virtualType name="RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessage\Grid\Collection"
                  type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="const">
-                RunAsRoot\MessageQueueRetry\Api\Data\MessageInterface::TABLE_NAME
+                RunAsRoot\MessageQueueRetry\Api\Data\QueueErrorMessageInterface::TABLE_NAME
             </argument>
             <argument name="resourceModel" xsi:type="string">
-                RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource
+                RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessageResource
             </argument>
         </arguments>
     </virtualType>

@@ -6,21 +6,21 @@ use Magento\Framework\Controller\Result\Raw as RawResponse;
 use PHPUnit\Framework\TestCase;
 use RunAsRoot\MessageQueueRetry\Builder\MessageBodyDownloadFileNameBuilder;
 use RunAsRoot\MessageQueueRetry\Exception\EmptyQueueMessageBodyException;
-use RunAsRoot\MessageQueueRetry\Mapper\MessageToRawResponseMapper;
-use RunAsRoot\MessageQueueRetry\Model\Message;
+use RunAsRoot\MessageQueueRetry\Mapper\QueueErrorMessageToRawResponseMapper;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
 
-final class MessageToRawResponseMapperTest extends TestCase
+final class QueueErrorMessageToRawResponseMapperTest extends TestCase
 {
-    private MessageToRawResponseMapper $sut;
+    private QueueErrorMessageToRawResponseMapper $sut;
 
     protected function setUp(): void
     {
-        $this->sut = new MessageToRawResponseMapper(new MessageBodyDownloadFileNameBuilder());
+        $this->sut = new QueueErrorMessageToRawResponseMapper(new MessageBodyDownloadFileNameBuilder());
     }
 
     public function testMap(): void
     {
-        $messageMock = $this->createMock(Message::class);
+        $messageMock = $this->createMock(QueueErrorMessage::class);
         $rawResponseMock = $this->createMock(RawResponse::class);
 
         $messageBody = '{"test": "test"}';
@@ -47,7 +47,7 @@ final class MessageToRawResponseMapperTest extends TestCase
 
     public function testItShouldThrowAnExceptionWhenMessageBodyIsEmpty(): void
     {
-        $messageMock = $this->createMock(Message::class);
+        $messageMock = $this->createMock(QueueErrorMessage::class);
         $rawResponseMock = $this->createMock(RawResponse::class);
 
         $messageMock->expects($this->once())->method('getMessageBody')->willReturn('');

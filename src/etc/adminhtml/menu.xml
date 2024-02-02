@@ -8,7 +8,7 @@
              resource="RunAsRoot_MessageQueueRetry::message_queue_retry"
         />
         <add id="RunAsRoot_MessageQueueRetry::message_queue_manage"
-             title="Manage messages"
+             title="Manage queue error messages"
              translate="title"
              module="RunAsRoot_MessageQueueRetry"
              sortOrder="10"

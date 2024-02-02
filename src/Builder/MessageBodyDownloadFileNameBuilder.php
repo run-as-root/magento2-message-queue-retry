@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Builder;
 
-use RunAsRoot\MessageQueueRetry\Model\Message;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
 
 class MessageBodyDownloadFileNameBuilder
 {
-    public function build(Message $message): string
+    public function build(QueueErrorMessage $message): string
     {
         return $message->getTopicName() . '_' . $message->getId() . '.json';
     }

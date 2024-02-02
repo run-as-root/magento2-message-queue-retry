@@ -7,9 +7,9 @@ namespace RunAsRoot\MessageQueueRetry\Test\Unit\Repository\Command;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
-use RunAsRoot\MessageQueueRetry\Model\Message;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
 use RunAsRoot\MessageQueueRetry\Repository\Command\CreateMessageCommand;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessageResource as ResourceModel;
 
 class CreateMessageCommandTest extends TestCase
 {
@@ -24,7 +24,7 @@ class CreateMessageCommandTest extends TestCase
 
     public function testExecute(): void
     {
-        $messageMock = $this->createMock(Message::class);
+        $messageMock = $this->createMock(QueueErrorMessage::class);
         $this->resourceModelMock->expects($this->once())->method('save')->with($messageMock);
         $result = $this->sut->execute($messageMock);
         $this->assertEquals($messageMock, $result);
@@ -33,7 +33,7 @@ class CreateMessageCommandTest extends TestCase
     public function testExecuteWithException(): void
     {
         $this->expectException(MessageCouldNotBeCreatedException::class);
-        $messageMock = $this->createMock(Message::class);
+        $messageMock = $this->createMock(QueueErrorMessage::class);
         $this->resourceModelMock->expects($this->once())->method('save')->with($messageMock)
             ->willThrowException(new \Exception('test'));
         $this->sut->execute($messageMock);

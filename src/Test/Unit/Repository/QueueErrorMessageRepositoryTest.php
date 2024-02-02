@@ -6,16 +6,16 @@ namespace RunAsRoot\MessageQueueRetry\Test\Unit\Repository;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use RunAsRoot\MessageQueueRetry\Model\Message;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
 use RunAsRoot\MessageQueueRetry\Repository\Command\CreateMessageCommand;
 use RunAsRoot\MessageQueueRetry\Repository\Command\DeleteMessageByIdCommand;
 use RunAsRoot\MessageQueueRetry\Repository\Command\DeleteMessageCommand;
-use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
+use RunAsRoot\MessageQueueRetry\Repository\QueueErrorMessageRepository;
 use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageByIdQuery;
 
-class MessageRepositoryTest extends TestCase
+class QueueErrorMessageRepositoryTest extends TestCase
 {
-    private MessageRepository $sut;
+    private QueueErrorMessageRepository $sut;
     private CreateMessageCommand|MockObject $createMessageCommandMock;
     private DeleteMessageCommand|MockObject $deleteMessageCommandMock;
     private DeleteMessageByIdCommand|MockObject $deleteMessageByIdCommandMock;
@@ -27,7 +27,7 @@ class MessageRepositoryTest extends TestCase
         $this->deleteMessageCommandMock = $this->createMock(DeleteMessageCommand::class);
         $this->deleteMessageByIdCommandMock = $this->createMock(DeleteMessageByIdCommand::class);
         $this->findMessageByIdQueryMock = $this->createMock(FindMessageByIdQuery::class);
-        $this->sut = new MessageRepository(
+        $this->sut = new QueueErrorMessageRepository(
             $this->createMessageCommandMock,
             $this->deleteMessageCommandMock,
             $this->deleteMessageByIdCommandMock,
@@ -44,7 +44,7 @@ class MessageRepositoryTest extends TestCase
 
     public function testCreate(): void
     {
-        $messageMock = $this->createMock(Message::class);
+        $messageMock = $this->createMock(QueueErrorMessage::class);
         $this->createMessageCommandMock->expects($this->once())->method('execute')->with($messageMock);
         $this->sut->create($messageMock);
     }
@@ -58,7 +58,7 @@ class MessageRepositoryTest extends TestCase
 
     public function testDelete(): void
     {
-        $messageMock = $this->createMock(Message::class);
+        $messageMock = $this->createMock(QueueErrorMessage::class);
         $this->deleteMessageCommandMock->expects($this->once())->method('execute')->with($messageMock);
         $this->sut->delete($messageMock);
     }

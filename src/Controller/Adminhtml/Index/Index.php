@@ -24,7 +24,7 @@ class Index extends Action
     {
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__('Messages')->render());
+        $resultPage->getConfig()->getTitle()->prepend(__('Queue Error Messages')->render());
         $resultPage->setActiveMenu('RunAsRoot_MessageQueueRetry::message_queue_retry');
 
         return $resultPage;

@@ -8,9 +8,10 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\Result\RedirectFactory;
+use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Ui\Component\MassAction\Filter;
-use RunAsRoot\MessageQueueRetry\Model\Message;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\MessageCollectionFactory;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessage\QueueErrorMessageCollectionFactory;
 use RunAsRoot\MessageQueueRetry\Service\PublishMessageToQueueService;
 
 class MassRequeue extends Action
@@ -21,7 +22,7 @@ class MassRequeue extends Action
         Context $context,
         private PublishMessageToQueueService $publishMessageToQueueService,
         private RedirectFactory $redirectFactory,
-        private MessageCollectionFactory $collectionFactory,
+        private QueueErrorMessageCollectionFactory $collectionFactory,
         private Filter $filter
     ) {
         parent::__construct($context);
@@ -32,10 +33,12 @@ class MassRequeue extends Action
         $redirect = $this->redirectFactory->create();
 
         try {
-            $collection = $this->filter->getCollection($this->collectionFactory->create());
+            /** @var AbstractDb $messageCollection */
+            $messageCollection = $this->collectionFactory->create();
+            $collection = $this->filter->getCollection($messageCollection);
 
             foreach ($collection->getItems() as $message) {
-                if (!$message instanceof Message) {
+                if (!$message instanceof QueueErrorMessage) {
                     continue;
                 }
 
