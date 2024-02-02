@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="run_as_root_clean_old_queue_error_messages"
+             instance="RunAsRoot\MessageQueueRetry\Cron\DeleteOldQueueErrorMessages" method="execute">
+            <!-- At 2AM every morning -->
+            <schedule>0 2 * * *</schedule>
+        </job>
+    </group>
+</config>

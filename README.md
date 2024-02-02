@@ -15,6 +15,7 @@ utilizing The RabbitMQ's [dead letter exchange](https://www.rabbitmq.com/dlx.htm
 - [How it works](#how-it-works)
 - [Configuration](#configuration)
 - [Skipping the retry](#skipping-the-retry)
+- [Exploring a real scenario](#exploring-a-real-scenario)
 - [License](#licence)
 
 ---
@@ -203,6 +204,10 @@ System > Configuration > RUN-AS-ROOT > Message Queue Retry
 
 ![img.png](docs/module-configuration.png)
 
+**Note:** The configuration `Total of days to keep the messages` is the period that the messages will stay in the database. After this period, the messages will be deleted automatically by a Cron job.
+
+The `run_as_root_clean_old_queue_error_messages` cron job is scheduled to run every day at 02:00 AM.
+
 ---
 
 ### Skipping the retry
@@ -216,6 +221,12 @@ If you configure the dead letter exchange and do not do the steps mentioned, the
 This is the default behavior for the RabbitMQ dead letter exchange and will work this way even if this module is not installed.
 
 For more information of how to configure message queues in Magento 2, you can take a look [here](https://developer.adobe.com/commerce/php/development/components/message-queues/configuration/).
+
+---
+
+## Exploring a real scenario
+
+If you want to know more about this module and explore a real scenario with it, please, take a look at the [blog post](https://dev.to/run_as_root/preventing-transaction-loss-unleashing-the-power-of-resilient-transactions-with-rabbitmq-dead-letter-exchanges-in-magento-2-8h0) we wrote about it.
 
 ---
 
