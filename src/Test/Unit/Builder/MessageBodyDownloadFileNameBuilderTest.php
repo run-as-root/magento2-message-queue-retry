@@ -6,7 +6,7 @@ namespace RunAsRoot\MessageQueueRetry\Test\Unit\Builder;
 
 use PHPUnit\Framework\TestCase;
 use RunAsRoot\MessageQueueRetry\Builder\MessageBodyDownloadFileNameBuilder;
-use RunAsRoot\MessageQueueRetry\Model\Message;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
 
 final class MessageBodyDownloadFileNameBuilderTest extends TestCase
 {
@@ -19,7 +19,7 @@ final class MessageBodyDownloadFileNameBuilderTest extends TestCase
 
     public function testBuild(): void
     {
-        $messageMock = $this->createMock(Message::class);
+        $messageMock = $this->createMock(QueueErrorMessage::class);
         $messageMock->expects($this->once())->method('getTopicName')->willReturn('topic_name');
         $messageMock->expects($this->once())->method('getId')->willReturn('message_id');
 

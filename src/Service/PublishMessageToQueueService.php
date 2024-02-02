@@ -8,15 +8,15 @@ use RunAsRoot\MessageQueueRetry\Exception\InvalidPublisherConfigurationException
 use RunAsRoot\MessageQueueRetry\Exception\InvalidQueueConnectionTypeException;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
 use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
-use RunAsRoot\MessageQueueRetry\Model\Message;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
 use RunAsRoot\MessageQueueRetry\Queue\Publisher;
-use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
+use RunAsRoot\MessageQueueRetry\Repository\QueueErrorMessageRepository;
 
 class PublishMessageToQueueService
 {
     public function __construct(
         private Publisher $publisher,
-        private MessageRepository $messageRepository
+        private QueueErrorMessageRepository $messageRepository
     ) {
     }
 
@@ -39,7 +39,7 @@ class PublishMessageToQueueService
      * @throws InvalidQueueConnectionTypeException
      * @throws InvalidPublisherConfigurationException
      */
-    public function executeByMessage(Message $message): void
+    public function executeByMessage(QueueErrorMessage $message): void
     {
         $this->publisher->publish($message->getTopicName(), $message->getMessageBody());
         $this->messageRepository->delete($message);

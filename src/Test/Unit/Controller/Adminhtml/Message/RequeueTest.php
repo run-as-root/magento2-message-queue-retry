@@ -20,6 +20,7 @@ final class RequeueTest extends TestCase
     private RedirectFactory|MockObject $redirectFactoryMock;
     private PublishMessageToQueueService|MockObject $publishMessageToQueueServiceMock;
     private MessageManagerInterface|MockObject $messageManagerMock;
+    private RequestInterface|MockObject $requestMock;
 
     protected function setUp(): void
     {

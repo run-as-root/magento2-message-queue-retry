@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace RunAsRoot\MessageQueueRetry\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use RunAsRoot\MessageQueueRetry\Api\Data\MessageInterface;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\Message\MessageCollection;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource;
+use RunAsRoot\MessageQueueRetry\Api\Data\QueueErrorMessageInterface;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessage\QueueErrorMessageCollection;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessageResource;
 
-class Message extends AbstractModel implements MessageInterface
+class QueueErrorMessage extends AbstractModel implements QueueErrorMessageInterface
 {
     public function getTopicName(): string
     {
@@ -73,7 +73,7 @@ class Message extends AbstractModel implements MessageInterface
 
     protected function _construct(): void
     {
-        $this->_init(MessageResource::class);
-        $this->_collectionName = MessageCollection::class;
+        $this->_init(QueueErrorMessageResource::class);
+        $this->_collectionName = QueueErrorMessageCollection::class;
     }
 }

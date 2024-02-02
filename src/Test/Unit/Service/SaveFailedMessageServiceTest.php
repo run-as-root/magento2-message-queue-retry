@@ -6,9 +6,9 @@ namespace RunAsRoot\MessageQueueRetry\Test\Unit\Service;
 
 use Magento\Framework\MessageQueue\Envelope;
 use PHPUnit\Framework\TestCase;
-use RunAsRoot\MessageQueueRetry\Model\Message;
-use RunAsRoot\MessageQueueRetry\Model\MessageFactory;
-use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessageFactory;
+use RunAsRoot\MessageQueueRetry\Repository\QueueErrorMessageRepository;
 use RunAsRoot\MessageQueueRetry\Service\GetMessageRetriesCountService;
 use RunAsRoot\MessageQueueRetry\Service\SaveFailedMessageService;
 
@@ -16,10 +16,10 @@ final class SaveFailedMessageServiceTest extends TestCase
 {
     public function testItSavesFailedMessage(): void
     {
-        $messageFactoryMock = $this->createMock(MessageFactory::class);
-        $messageRepoMock = $this->createMock(MessageRepository::class);
+        $messageFactoryMock = $this->createMock(QueueErrorMessageFactory::class);
+        $messageRepoMock = $this->createMock(QueueErrorMessageRepository::class);
         $getMessageRetriesCountServiceMock = $this->createMock(GetMessageRetriesCountService::class);
-        $messageMock = $this->createMock(Message::class);
+        $messageMock = $this->createMock(QueueErrorMessage::class);
 
         $testRetriesCount = 3;
         $testExceptionMessage = 'some exception message';
