@@ -15,6 +15,7 @@ utilizing The RabbitMQ's [dead letter exchange](https://www.rabbitmq.com/dlx.htm
 - [How it works](#how-it-works)
 - [Configuration](#configuration)
 - [Skipping the retry](#skipping-the-retry)
+- [Exploring a real scenario](#exploring-a-real-scenario)
 - [License](#licence)
 
 ---
@@ -64,7 +65,7 @@ The default Magento's consumer behavior is to reject the message when an excepti
 If you use a standard configuration for the queue (without a dead-letter exchange), the message will be discarded and not processed again.
 
 This behavior will change a bit with this module. It will introduce an extra step that will check if the message has reached your retry limit,
-if so, it will be discarded from RabbitMQ and sent to the `run_as_root_message` Mysql table and stay there until manual management through the admin panel.
+if so, it will be discarded from RabbitMQ and sent to the `run_as_root_queue_error_message` Mysql table and stay there until manual management through the admin panel.
 
 If the message has not reached the retry limit, it will be rejected, and RabbitMQ will send it to the dead letter exchange. The message will be routed automatically to the "delay" queue and stay there until de TTL time is reached.
 After the TTL time is reached, the message will be returned to its original queue.
@@ -203,6 +204,10 @@ System > Configuration > RUN-AS-ROOT > Message Queue Retry
 
 ![img.png](docs/module-configuration.png)
 
+**Note:** The configuration `Total of days to keep the messages` is the period that the messages will stay in the database. After this period, the messages will be deleted automatically by a Cron job.
+
+The `run_as_root_clean_old_queue_error_messages` cron job is scheduled to run every day at 02:00 AM.
+
 ---
 
 ### Skipping the retry
@@ -216,6 +221,12 @@ If you configure the dead letter exchange and do not do the steps mentioned, the
 This is the default behavior for the RabbitMQ dead letter exchange and will work this way even if this module is not installed.
 
 For more information of how to configure message queues in Magento 2, you can take a look [here](https://developer.adobe.com/commerce/php/development/components/message-queues/configuration/).
+
+---
+
+## Exploring a real scenario
+
+If you want to know more about this module and explore a real scenario with it, please, take a look at the [blog post](https://dev.to/run_as_root/preventing-transaction-loss-unleashing-the-power-of-resilient-transactions-with-rabbitmq-dead-letter-exchanges-in-magento-2-8h0) we wrote about it.
 
 ---
 

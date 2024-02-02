@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace RunAsRoot\MessageQueueRetry\Repository\Query;
 
 use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
-use RunAsRoot\MessageQueueRetry\Model\Message;
-use RunAsRoot\MessageQueueRetry\Model\MessageFactory as ModelFactory;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessageFactory as ModelFactory;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessageResource as ResourceModel;
 
 class FindMessageByIdQuery
 {
     public function __construct(
-        private ResourceModel $resourceModel,
-        private ModelFactory $modelFactory
+        private readonly ResourceModel $resourceModel,
+        private readonly ModelFactory $modelFactory
     ) {
     }
 
     /**
      * @throws MessageNotFoundException
      */
-    public function execute(int $entityId): Message
+    public function execute(int $entityId): QueueErrorMessage
     {
         $model = $this->modelFactory->create();
         $this->resourceModel->load($model, $entityId);

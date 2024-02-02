@@ -7,19 +7,19 @@ namespace RunAsRoot\MessageQueueRetry\Mapper;
 use Magento\Framework\Controller\Result\Raw as RawResponse;
 use RunAsRoot\MessageQueueRetry\Builder\MessageBodyDownloadFileNameBuilder;
 use RunAsRoot\MessageQueueRetry\Exception\EmptyQueueMessageBodyException;
-use RunAsRoot\MessageQueueRetry\Model\Message;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
 
-class MessageToRawResponseMapper
+class QueueErrorMessageToRawResponseMapper
 {
     public function __construct(
-        private MessageBodyDownloadFileNameBuilder $messageBodyDownloadFileNameBuilder
+        private readonly MessageBodyDownloadFileNameBuilder $messageBodyDownloadFileNameBuilder
     ) {
     }
 
     /**
      * @throws EmptyQueueMessageBodyException
      */
-    public function map(Message $message, RawResponse $rawResponse): RawResponse
+    public function map(QueueErrorMessage $message, RawResponse $rawResponse): RawResponse
     {
         $messageBody = $message->getMessageBody();
 

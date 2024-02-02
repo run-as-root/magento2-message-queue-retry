@@ -9,7 +9,7 @@ use RunAsRoot\MessageQueueRetry\Config\QueueRetryConfigInterface;
 
 class FindQueueRetryLimitByTopicNameQuery
 {
-    public function __construct(private DataInterface $configStorage)
+    public function __construct(private readonly DataInterface $configStorage)
     {
     }
 

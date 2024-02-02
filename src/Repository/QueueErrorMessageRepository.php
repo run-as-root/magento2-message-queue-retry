@@ -7,26 +7,26 @@ namespace RunAsRoot\MessageQueueRetry\Repository;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
 use RunAsRoot\MessageQueueRetry\Exception\MessageNotFoundException;
-use RunAsRoot\MessageQueueRetry\Model\Message;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
 use RunAsRoot\MessageQueueRetry\Repository\Command\CreateMessageCommand;
 use RunAsRoot\MessageQueueRetry\Repository\Command\DeleteMessageByIdCommand;
 use RunAsRoot\MessageQueueRetry\Repository\Command\DeleteMessageCommand;
 use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageByIdQuery;
 
-class MessageRepository
+class QueueErrorMessageRepository
 {
     public function __construct(
-        private CreateMessageCommand $createMessageCommand,
-        private DeleteMessageCommand $deleteMessageCommand,
-        private DeleteMessageByIdCommand $deleteMessageByIdCommand,
-        private FindMessageByIdQuery $findMessageByIdQuery
+        private readonly CreateMessageCommand $createMessageCommand,
+        private readonly DeleteMessageCommand $deleteMessageCommand,
+        private readonly DeleteMessageByIdCommand $deleteMessageByIdCommand,
+        private readonly FindMessageByIdQuery $findMessageByIdQuery
     ) {
     }
 
     /**
      * @throws MessageNotFoundException
      */
-    public function findById(int $id): Message
+    public function findById(int $id): QueueErrorMessage
     {
         return $this->findMessageByIdQuery->execute($id);
     }
@@ -34,7 +34,7 @@ class MessageRepository
     /**
      * @throws MessageCouldNotBeCreatedException
      */
-    public function create(Message $message): Message
+    public function create(QueueErrorMessage $message): QueueErrorMessage
     {
         return $this->createMessageCommand->execute($message);
     }
@@ -50,7 +50,7 @@ class MessageRepository
     /**
      * @throws MessageCouldNotBeDeletedException
      */
-    public function delete(Message $message): void
+    public function delete(QueueErrorMessage $message): void
     {
         $this->deleteMessageCommand->execute($message);
     }

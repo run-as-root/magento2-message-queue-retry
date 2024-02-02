@@ -10,7 +10,7 @@ use RunAsRoot\MessageQueueRetry\Config\QueueRetryConfigInterface;
 
 class QueueRetrySchemaLocator implements SchemaLocatorInterface
 {
-    public function __construct(private UrnResolver $urnResolver)
+    public function __construct(private readonly UrnResolver $urnResolver)
     {
     }
 

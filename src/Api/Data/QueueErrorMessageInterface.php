@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace RunAsRoot\MessageQueueRetry\Api\Data;
 
-interface MessageInterface
+interface QueueErrorMessageInterface
 {
-    public const TABLE_NAME = 'run_as_root_message';
+    public const TABLE_NAME = 'run_as_root_queue_error_message';
     public const ENTITY_ID = 'entity_id';
     public const TOPIC_NAME = 'topic_name';
     public const MESSAGE_BODY = 'message_body';

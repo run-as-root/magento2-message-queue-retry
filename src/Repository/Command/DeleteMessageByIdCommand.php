@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace RunAsRoot\MessageQueueRetry\Repository\Command;
 
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessageResource as ResourceModel;
 use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageByIdQuery;
 
 class DeleteMessageByIdCommand
 {
     public function __construct(
-        private ResourceModel $resourceModel,
-        private FindMessageByIdQuery $findMessageByIdQuery
+        private readonly ResourceModel $resourceModel,
+        private readonly FindMessageByIdQuery $findMessageByIdQuery
     ) {
     }
 

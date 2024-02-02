@@ -9,11 +9,11 @@ use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
 use PHPUnit\Framework\TestCase;
-use RunAsRoot\MessageQueueRetry\Model\Message;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
 
 final class MessageTest extends TestCase
 {
-    private Message $sut;
+    private QueueErrorMessage $sut;
 
     protected function setUp(): void
     {
@@ -26,7 +26,7 @@ final class MessageTest extends TestCase
             ->getMock();
         $resourceMock->expects($this->any())->method('getIdFieldName')->willReturn('id');
         $resourceCollectionMock = $this->createMock(AbstractDb::class);
-        $this->sut = new Message(
+        $this->sut = new QueueErrorMessage(
             $contextMock,
             $registryMock,
             $resourceMock,

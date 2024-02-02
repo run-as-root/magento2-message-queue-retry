@@ -7,8 +7,8 @@ namespace RunAsRoot\MessageQueueRetry\Test\Unit\Repository\Command;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeDeletedException;
-use RunAsRoot\MessageQueueRetry\Model\Message;
-use RunAsRoot\MessageQueueRetry\Model\ResourceModel\MessageResource as ResourceModel;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
+use RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessageResource as ResourceModel;
 use RunAsRoot\MessageQueueRetry\Repository\Command\DeleteMessageByIdCommand;
 use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageByIdQuery;
 
@@ -28,7 +28,7 @@ class DeleteMessageByIdCommandTest extends TestCase
     public function testExecute(): void
     {
         $entityId = 10;
-        $messageMock = $this->createMock(Message::class);
+        $messageMock = $this->createMock(QueueErrorMessage::class);
         $this->findMessageByIdQueryMock->expects($this->once())->method('execute')->with($entityId)
             ->willReturn($messageMock);
         $this->resourceModelMock->expects($this->once())->method('delete')->with($messageMock);

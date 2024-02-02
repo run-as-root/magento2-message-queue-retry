@@ -5,6 +5,7 @@
         <message_queue_retry>
             <general>
                 <enable_delay_queue>0</enable_delay_queue>
+                <total_days_to_keep_messages>30</total_days_to_keep_messages>
             </general>
         </message_queue_retry>
     </default>

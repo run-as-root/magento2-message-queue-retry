@@ -6,15 +6,15 @@ namespace RunAsRoot\MessageQueueRetry\Service;
 
 use Magento\Framework\MessageQueue\EnvelopeInterface;
 use RunAsRoot\MessageQueueRetry\Exception\MessageCouldNotBeCreatedException;
-use RunAsRoot\MessageQueueRetry\Model\MessageFactory;
-use RunAsRoot\MessageQueueRetry\Repository\MessageRepository;
+use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessageFactory;
+use RunAsRoot\MessageQueueRetry\Repository\QueueErrorMessageRepository;
 
 class SaveFailedMessageService
 {
     public function __construct(
-        private MessageFactory $messageFactory,
-        private MessageRepository $messageRepository,
-        private GetMessageRetriesCountService $getMessageRetriesCountService
+        private readonly QueueErrorMessageFactory $messageFactory,
+        private readonly QueueErrorMessageRepository $messageRepository,
+        private readonly GetMessageRetriesCountService $getMessageRetriesCountService
     ) {
     }
 

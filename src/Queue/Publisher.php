@@ -14,9 +14,9 @@ use RunAsRoot\MessageQueueRetry\Exception\InvalidQueueConnectionTypeException;
 class Publisher
 {
     public function __construct(
-        private ExchangeRepository $exchangeRepository,
-        private EnvelopeFactory $envelopeFactory,
-        private PublisherConfig $publisherConfig
+        private readonly ExchangeRepository $exchangeRepository,
+        private readonly EnvelopeFactory $envelopeFactory,
+        private readonly PublisherConfig $publisherConfig
     ) {
     }
 

@@ -22,6 +22,14 @@
                         default Magento behavior will run instead.
                     </comment>
                 </field>
+                <field id="total_days_to_keep_messages" translate="label,comment" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Total of days to keep messages</label>
+                    <comment>
+                        After the total of days the messages will be deleted from the database table by a cron job.
+                    </comment>
+                    <validate>required integer validate-greater-than-zero</validate>
+                </field>
             </group>
         </section>
     </system>
