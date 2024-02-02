@@ -64,7 +64,7 @@ The default Magento's consumer behavior is to reject the message when an excepti
 If you use a standard configuration for the queue (without a dead-letter exchange), the message will be discarded and not processed again.
 
 This behavior will change a bit with this module. It will introduce an extra step that will check if the message has reached your retry limit,
-if so, it will be discarded from RabbitMQ and sent to the `run_as_root_message` Mysql table and stay there until manual management through the admin panel.
+if so, it will be discarded from RabbitMQ and sent to the `run_as_root_queue_error_message` Mysql table and stay there until manual management through the admin panel.
 
 If the message has not reached the retry limit, it will be rejected, and RabbitMQ will send it to the dead letter exchange. The message will be routed automatically to the "delay" queue and stay there until de TTL time is reached.
 After the TTL time is reached, the message will be returned to its original queue.
