@@ -11,9 +11,9 @@ use RunAsRoot\MessageQueueRetry\System\Config\MessageQueueRetryConfig;
 class IsMessageShouldBeSavedForRetryService
 {
     public function __construct(
-        private MessageQueueRetryConfig $messageQueueRetryConfig,
-        private GetMessageRetriesCountService $getMessageRetriesCountService,
-        private FindQueueRetryLimitByTopicNameQuery $findQueueRetryLimitByTopicNameQuery
+        private readonly MessageQueueRetryConfig $messageQueueRetryConfig,
+        private readonly GetMessageRetriesCountService $getMessageRetriesCountService,
+        private readonly FindQueueRetryLimitByTopicNameQuery $findQueueRetryLimitByTopicNameQuery
     ) {
     }
 

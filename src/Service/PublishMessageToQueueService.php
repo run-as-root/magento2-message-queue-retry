@@ -15,8 +15,8 @@ use RunAsRoot\MessageQueueRetry\Repository\QueueErrorMessageRepository;
 class PublishMessageToQueueService
 {
     public function __construct(
-        private Publisher $publisher,
-        private QueueErrorMessageRepository $messageRepository
+        private readonly Publisher $publisher,
+        private readonly QueueErrorMessageRepository $messageRepository
     ) {
     }
 

@@ -10,7 +10,7 @@ class MessageQueueRetryConfig
 {
     private const XML_PATH_ENABLE_DELAY_QUEUE = 'message_queue_retry/general/enable_delay_queue';
 
-    public function __construct(private ScopeConfigInterface $scopeConfig)
+    public function __construct(private readonly ScopeConfigInterface $scopeConfig)
     {
     }
 

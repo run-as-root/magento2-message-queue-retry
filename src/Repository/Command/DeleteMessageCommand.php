@@ -10,7 +10,7 @@ use RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessageResource as
 
 class DeleteMessageCommand
 {
-    public function __construct(private ResourceModel $resourceModel)
+    public function __construct(private readonly ResourceModel $resourceModel)
     {
     }
 

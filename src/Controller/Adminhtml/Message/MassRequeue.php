@@ -20,10 +20,10 @@ class MassRequeue extends Action
 
     public function __construct(
         Context $context,
-        private PublishMessageToQueueService $publishMessageToQueueService,
-        private RedirectFactory $redirectFactory,
-        private QueueErrorMessageCollectionFactory $collectionFactory,
-        private Filter $filter
+        private readonly PublishMessageToQueueService $publishMessageToQueueService,
+        private readonly RedirectFactory $redirectFactory,
+        private readonly QueueErrorMessageCollectionFactory $collectionFactory,
+        private readonly Filter $filter
     ) {
         parent::__construct($context);
     }

@@ -20,10 +20,10 @@ class MassDelete extends Action
 
     public function __construct(
         Context $context,
-        private QueueErrorMessageRepository $messageRepository,
-        private RedirectFactory $redirectFactory,
-        private QueueErrorMessageCollectionFactory $collectionFactory,
-        private Filter $filter
+        private readonly QueueErrorMessageRepository $messageRepository,
+        private readonly RedirectFactory $redirectFactory,
+        private readonly QueueErrorMessageCollectionFactory $collectionFactory,
+        private readonly Filter $filter
     ) {
         parent::__construct($context);
     }

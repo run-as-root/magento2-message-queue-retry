@@ -11,8 +11,8 @@ use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageByIdQuery;
 class DeleteMessageByIdCommand
 {
     public function __construct(
-        private ResourceModel $resourceModel,
-        private FindMessageByIdQuery $findMessageByIdQuery
+        private readonly ResourceModel $resourceModel,
+        private readonly FindMessageByIdQuery $findMessageByIdQuery
     ) {
     }
 

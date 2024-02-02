@@ -19,9 +19,9 @@ class Download extends Action
 
     public function __construct(
         Context $context,
-        private QueueErrorMessageRepository $messageRepository,
-        private RawFactory $rawFactory,
-        private QueueErrorMessageToRawResponseMapper $messageToRawResponseMapper
+        private readonly QueueErrorMessageRepository $messageRepository,
+        private readonly RawFactory $rawFactory,
+        private readonly QueueErrorMessageToRawResponseMapper $messageToRawResponseMapper
     ) {
         parent::__construct($context);
     }

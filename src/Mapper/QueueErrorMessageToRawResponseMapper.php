@@ -12,7 +12,7 @@ use RunAsRoot\MessageQueueRetry\Model\QueueErrorMessage;
 class QueueErrorMessageToRawResponseMapper
 {
     public function __construct(
-        private MessageBodyDownloadFileNameBuilder $messageBodyDownloadFileNameBuilder
+        private readonly MessageBodyDownloadFileNameBuilder $messageBodyDownloadFileNameBuilder
     ) {
     }
 

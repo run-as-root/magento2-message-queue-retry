@@ -14,8 +14,8 @@ use RunAsRoot\MessageQueueRetry\Service\SaveFailedMessageService;
 class HandleQueueMessageRejectPlugin
 {
     public function __construct(
-        private IsMessageShouldBeSavedForRetryService $isMessageShouldBeSavedForRetryService,
-        private SaveFailedMessageService $saveFailedMessageService
+        private readonly IsMessageShouldBeSavedForRetryService $isMessageShouldBeSavedForRetryService,
+        private readonly SaveFailedMessageService $saveFailedMessageService
     ) {
     }
 

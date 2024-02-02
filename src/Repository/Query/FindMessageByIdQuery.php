@@ -12,8 +12,8 @@ use RunAsRoot\MessageQueueRetry\Model\ResourceModel\QueueErrorMessageResource as
 class FindMessageByIdQuery
 {
     public function __construct(
-        private ResourceModel $resourceModel,
-        private ModelFactory $modelFactory
+        private readonly ResourceModel $resourceModel,
+        private readonly ModelFactory $modelFactory
     ) {
     }
 

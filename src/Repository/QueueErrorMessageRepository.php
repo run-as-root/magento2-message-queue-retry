@@ -16,10 +16,10 @@ use RunAsRoot\MessageQueueRetry\Repository\Query\FindMessageByIdQuery;
 class QueueErrorMessageRepository
 {
     public function __construct(
-        private CreateMessageCommand $createMessageCommand,
-        private DeleteMessageCommand $deleteMessageCommand,
-        private DeleteMessageByIdCommand $deleteMessageByIdCommand,
-        private FindMessageByIdQuery $findMessageByIdQuery
+        private readonly CreateMessageCommand $createMessageCommand,
+        private readonly DeleteMessageCommand $deleteMessageCommand,
+        private readonly DeleteMessageByIdCommand $deleteMessageByIdCommand,
+        private readonly FindMessageByIdQuery $findMessageByIdQuery
     ) {
     }
 

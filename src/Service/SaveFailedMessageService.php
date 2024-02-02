@@ -12,9 +12,9 @@ use RunAsRoot\MessageQueueRetry\Repository\QueueErrorMessageRepository;
 class SaveFailedMessageService
 {
     public function __construct(
-        private QueueErrorMessageFactory $messageFactory,
-        private QueueErrorMessageRepository $messageRepository,
-        private GetMessageRetriesCountService $getMessageRetriesCountService
+        private readonly QueueErrorMessageFactory $messageFactory,
+        private readonly QueueErrorMessageRepository $messageRepository,
+        private readonly GetMessageRetriesCountService $getMessageRetriesCountService
     ) {
     }
 

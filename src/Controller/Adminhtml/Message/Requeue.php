@@ -16,8 +16,8 @@ class Requeue extends Action
 
     public function __construct(
         Context $context,
-        private PublishMessageToQueueService $publishMessageToQueueService,
-        private RedirectFactory $redirectFactory
+        private readonly PublishMessageToQueueService $publishMessageToQueueService,
+        private readonly RedirectFactory $redirectFactory
     ) {
         parent::__construct($context);
     }
