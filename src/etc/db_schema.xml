@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="run_as_root_queue_error_message" onCreate="migrateDataFromAnotherTable(run_as_root_message)"
-           resource="default" engine="innodb">
+    <table name="run_as_root_queue_error_message" resource="default" engine="innodb">
         <column xsi:type="bigint" name="entity_id" unsigned="false" nullable="false" identity="true"/>
         <column xsi:type="varchar" name="topic_name" length="255" nullable="false"/>
         <column xsi:type="mediumtext" name="message_body" nullable="true"/>
