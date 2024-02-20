@@ -45,6 +45,6 @@ class DeleteOldMessageTable implements DataPatchInterface
 
     public static function getDependencies(): array
     {
-        return [CopyDataFromOldMessageTable::class];
+        return [ CopyDataFromOldMessageTable::class ];
     }
 }
