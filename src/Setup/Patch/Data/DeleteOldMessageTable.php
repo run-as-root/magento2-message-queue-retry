@@ -10,9 +10,9 @@ use Magento\Framework\Setup\Patch\DataPatchInterface;
 /**
  * The reason for this class is to handle the migration from the old message table to the new one.
  * This is necessary because errors are being generated during integration testes while using
- * the onCreate="migrateDataFromAnotherTable('old_table')" in the db_schema.xml
+ * the onCreate="migrateDataFromAnotherTable('run_as_root_message')" in the db_schema.xml
  */
-class HandleMigrationFromMessageTablePatch implements DataPatchInterface
+class DeleteOldMessageTable implements DataPatchInterface
 {
     public function __construct(
         private readonly ModuleDataSetupInterface $moduleDataSetup,
@@ -30,16 +30,11 @@ class HandleMigrationFromMessageTablePatch implements DataPatchInterface
 
         $connection = $this->moduleDataSetup->getConnection();
         $oldMessageTable = $this->moduleDataSetup->getTable('run_as_root_message');
-        $newMessageTable = $this->moduleDataSetup->getTable('run_as_root_queue_error_message');
 
-        if (!$connection->isTableExists($oldMessageTable) || !$connection->isTableExists($newMessageTable)) {
+        if (!$connection->isTableExists($oldMessageTable)) {
             $this->moduleDataSetup->endSetup();
             return $this;
         }
-
-        $select = $connection->select()->from($oldMessageTable);
-
-        $connection->query($connection->insertFromSelect($select, $newMessageTable));
 
         $connection->dropTable($oldMessageTable);
 
@@ -50,6 +45,6 @@ class HandleMigrationFromMessageTablePatch implements DataPatchInterface
 
     public static function getDependencies(): array
     {
-        return [];
+        return [CopyDataFromOldMessageTable::class];
     }
 }
