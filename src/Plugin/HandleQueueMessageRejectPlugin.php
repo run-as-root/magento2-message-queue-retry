@@ -28,7 +28,7 @@ class HandleQueueMessageRejectPlugin
         callable $proceed,
         EnvelopeInterface $envelope,
         bool $requeue = true,
-        string $rejectionMessage = null
+        ?string $rejectionMessage = null
     ): void {
         if (!$rejectionMessage) {
             $proceed($envelope, $requeue, $rejectionMessage);
